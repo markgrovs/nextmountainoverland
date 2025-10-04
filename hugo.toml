@@ -81,6 +81,12 @@ Follow along as we document our travels, preparations, and the lessons we learn 
     url = "/search/"
     weight = 40
 
+  [[menu.main]]
+    identifier = "contact"
+    name = "Contact"
+    url = "/contact/"
+    weight = 50
+
 # Taxonomies
 [taxonomies]
   tag = "tags"
