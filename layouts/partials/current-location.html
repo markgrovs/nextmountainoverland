@@ -1,0 +1,80 @@
+{{- if .Site.Data.location.current }}
+<div class="current-location">
+  <div class="location-icon">📍</div>
+  <div class="location-content">
+    <div class="location-label">Currently Exploring</div>
+    <div class="location-place">{{ .Site.Data.location.current.place }}</div>
+    {{- if .Site.Data.location.current.description }}
+    <div class="location-description">{{ .Site.Data.location.current.description }}</div>
+    {{- end }}
+    <div class="location-updated">Updated {{ .Site.Data.location.current.updated }}</div>
+  </div>
+</div>
+
+<style>
+.current-location {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  background: var(--entry);
+  border-radius: 8px;
+  border-left: 4px solid var(--primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.location-icon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.location-content {
+  flex: 1;
+}
+
+.location-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--secondary);
+  margin-bottom: 0.25rem;
+}
+
+.location-place {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.location-description {
+  font-size: 1rem;
+  color: var(--content);
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.location-updated {
+  font-size: 0.8rem;
+  color: var(--secondary);
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .current-location {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .location-icon {
+    font-size: 2rem;
+  }
+  
+  .location-place {
+    font-size: 1.25rem;
+  }
+}
+</style>
+{{- end }}

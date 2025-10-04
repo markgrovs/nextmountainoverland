@@ -1,0 +1,21 @@
+# Current Location Data
+# Update this file when you move to a new location
+
+current:
+  place: "Baja California Sur, Mexico"
+  region: "Baja California Sur"
+  country: "Mexico"
+  description: "Exploring the beaches and desert landscapes of Baja"
+  coordinates:
+    lat: 26.249507 
+    lon: -112.477037
+  updated: "2025-10-04"
+  
+# Optional: Keep a history of locations
+# history:
+#   - place: "Pagosa Springs, Colorado"
+#     arrived: "2025-09-15"
+#     departed: "2025-09-28"
+#   - place: "Durango, Colorado"
+#     arrived: "2025-09-10"
+#     departed: "2025-09-14"
