@@ -1,9 +1,5 @@
 {{- define "main" }}
 
-{{- if (and (.Site.Params.homeInfoParams) (eq .Site.Params.homeInfoParams.Title "")) }}
-{{- partial "current-location.html" . }}
-{{- end }}
-
 {{- if .Site.Params.homeInfoParams }}
 <article class="first-entry home-info">
     <header class="entry-header">
@@ -12,16 +8,11 @@
     <div class="entry-content">
         {{ .Site.Params.homeInfoParams.Content | markdownify }}
     </div>
-    <footer class="entry-footer">
-        {{ partial "social_icons.html" .Site.Params.socialIcons }}
-    </footer>
 </article>
 {{- end }}
 
 {{- /* Insert current location after home info */ -}}
-{{- if (and (.Site.Params.homeInfoParams) (ne .Site.Params.homeInfoParams.Title "")) }}
 {{- partial "current-location.html" . }}
-{{- end }}
 
 {{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
 {{- $paginator := .Paginate $pages }}
