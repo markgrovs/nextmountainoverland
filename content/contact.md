@@ -6,7 +6,7 @@ draft: false
 
 <p>Have a question, suggestion, or just want to say hello? Use the form below!</p>
 
-<form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+<form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="thank-you.md">
   <p class="hidden">
     <label>Don't fill this out if you're human: <input name="bot-field"></label>
   </p>
