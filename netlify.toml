@@ -24,7 +24,7 @@
 
 # Main branch (before custom domain is set up)
 [context.main]
-  command = "hugo --gc --minify --baseURL $DEPLOY_PRIME_URL"
+  command = "hugo --gc --minify --baseURL https://nextmountainoverland.com/"
 
 [[redirects]]
   from = "/rss"
