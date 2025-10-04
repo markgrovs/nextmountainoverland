@@ -39,8 +39,8 @@ We believe in the open web and the power of sharing experiences. If our journey 
 ## Connect With Us
 
 - **Instagram**: [@nextmountainoverland](https://instagram.com/nextmountainoverland)
-- **Email**: Coming soon
-- **RSS**: Subscribe to stay updated
+- **Email**: [contact@nextmountainoverland.com](mailto:contact@nextmountainoverland.com)
+- **RSS**: [Subscribe to stay updated](/index.xml)
 
 ---
 

@@ -1,12 +1,14 @@
 ---
 title: "Contact Us"
-date: 2025-10-04
 draft: false
+hideAuthor: true
+ShowReadingTime: false
+ShowWordCount: false
 ---
 
 <p>Have a question, suggestion, or just want to say hello? Use the form below!</p>
 
-<form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="thank-you.md">
+<form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you/">
   <p class="hidden">
     <label>Don't fill this out if you're human: <input name="bot-field"></label>
   </p>
@@ -25,18 +27,20 @@ draft: false
 </form>
 
 <style>
-  /* Basic form styling - you can expand this */
+  /* Basic form styling */
   form {
     max-width: 600px;
     margin: 2rem auto;
     padding: 2rem;
     border: 1px solid var(--border);
     border-radius: 8px;
+    background-color: var(--entry);
   }
   label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: bold;
+    color: var(--text);
   }
   input[type="text"],
   input[type="email"],
@@ -46,7 +50,8 @@ draft: false
     margin-bottom: 1rem;
     border: 1px solid var(--border);
     border-radius: 4px;
-    box-sizing: border-box; /* Important for padding */
+    background-color: var(--bg);
+    color: var(--text);
   }
   textarea {
     min-height: 150px;
@@ -69,3 +74,4 @@ draft: false
     display: none;
   }
 </style>
+

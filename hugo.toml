@@ -21,9 +21,9 @@ paginate = 10
   # Show reading time and word count
   ShowReadingTime = true
   ShowWordCount = true
-  ShowShareButtons = true
+  ShowShareButtons = false
   ShowPostNavLinks = true
-  ShowBreadCrumbs = true
+  ShowBreadCrumbs = false
   ShowCodeCopyButtons = true
   ShowRssButtonInSectionTermList = true
   
