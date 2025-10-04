@@ -6,6 +6,8 @@ Hugo-based travel blog for Mark and Valarie's overland adventures.
 
 This site documents our journey from RV adventures in NextMtn to preparing for our 2027 Pan American Highway motorcycle expedition from Colorado to Argentina.
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/4e43bce6-b2cf-4cb4-a258-26495c4a5984/deploy-status)](https://app.netlify.com/projects/nextmountainoverland/deploys)
+
 ## Quick Start
 
 ### Prerequisites
