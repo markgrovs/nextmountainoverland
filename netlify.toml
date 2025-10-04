@@ -3,18 +3,28 @@
   command = "hugo --gc --minify"
 
 [build.environment]
-  HUGO_VERSION = "0.151.0"
+  HUGO_VERSION = "0.120.0"
   HUGO_ENV = "production"
   HUGO_ENABLEGITINFO = "true"
+
+# Production (custom domain) - will activate when domain is pointed
+[context.production]
+  command = "hugo --gc --minify --baseURL https://nextmountainoverland.com/"
 
 [context.production.environment]
   HUGO_ENV = "production"
 
+# Deploy previews (PRs and branch deploys)
 [context.deploy-preview]
-  command = "hugo --gc --minify --buildFuture -b $DEPLOY_PRIME_URL"
+  command = "hugo --gc --minify --buildFuture --baseURL $DEPLOY_PRIME_URL"
 
+# Branch deploys (like dev branches)
 [context.branch-deploy]
-  command = "hugo --gc --minify -b $DEPLOY_PRIME_URL"
+  command = "hugo --gc --minify --baseURL $DEPLOY_PRIME_URL"
+
+# Main branch (before custom domain is set up)
+[context.main]
+  command = "hugo --gc --minify --baseURL $DEPLOY_PRIME_URL"
 
 [[redirects]]
   from = "/rss"
