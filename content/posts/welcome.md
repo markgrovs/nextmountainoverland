@@ -39,8 +39,8 @@ Here's the ambitious part: In 2027, we're planning to ride adventure motorcycles
 **Current status:**
 - ✅ Have the dream
 - ✅ Have the commitment
+- ✅ Have motorcycle licenses
 - ❌ Don't have motorcycles
-- ❌ Don't have motorcycle licenses
 - ❌ Don't have experience with long-distance motorcycle travel
 
 This site will document the entire preparation journey. Every step, every lesson, every mistake.

@@ -1,5 +1,8 @@
 {{- define "main" }}
 
+{{ partial "icons.svg" . }}
+{{ partial "brand-hero.html" . }}
+
 {{- if .Site.Params.homeInfoParams }}
 <article class="first-entry home-info">
     <header class="entry-header">
@@ -11,8 +14,7 @@
 </article>
 {{- end }}
 
-{{- /* Insert current location after home info */ -}}
-{{- partial "current-location.html" . }}
+{{ partial "current-location.html" . }}
 
 {{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
 {{- $paginator := .Paginate $pages }}
