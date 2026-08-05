@@ -1,0 +1,40 @@
+{{- /* PhotoSwipe 5 lightbox — loaded on any page that renders a gallery. */ -}}
+{{- if or (.HasShortcode "gallery") (eq .Layout "gallery") (eq .Section "gallery") -}}
+<script type="module">
+  import PhotoSwipeLightbox from 'https://unpkg.com/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.js';
+  import PhotoSwipe from 'https://unpkg.com/photoswipe@5.4.4/dist/photoswipe.esm.js';
+
+  const galleries = document.querySelectorAll('.pswp-gallery');
+  galleries.forEach((gallery) => {
+    const lightbox = new PhotoSwipeLightbox({
+      gallery: gallery,
+      children: 'a[data-pswp-src]',
+      pswpModule: PhotoSwipe,
+      showHideAnimationType: 'fade',
+      close: true,
+      zoom: true,
+      bgOpacity: 0.9,
+    });
+
+    lightbox.on('uiRegister', () => {
+      lightbox.pswp.ui.registerElement({
+        name: 'custom-caption',
+        order: 9,
+        isButton: false,
+        appendTo: 'root',
+        onInit: (el, pswp) => {
+          const setCaption = () => {
+            const curr = pswp.currSlide?.data;
+            el.textContent = curr?.element?.dataset?.pswpCaption || '';
+            el.style.display = el.textContent ? 'block' : 'none';
+          };
+          pswp.on('change', setCaption);
+          pswp.on('firstZoomPanAnim', setCaption);
+        },
+      });
+    });
+
+    lightbox.init();
+  });
+</script>
+{{- end -}}

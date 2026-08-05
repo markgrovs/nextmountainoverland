@@ -1,0 +1,24 @@
+{{- /* Reusable gallery renderer — globs all images in the current page bundle. */ -}}
+{{- $imgs := .Resources.ByType "image" -}}
+{{- if $imgs -}}
+<div class="pswp-gallery" itemscope itemtype="https://schema.org/ImageGallery">
+{{- range sort $imgs "Name" "asc" -}}
+  {{- $caption := "" -}}
+  {{- $sidecar := printf "%s.md" (strings.TrimSuffix (path.Ext .Name) .Name) -}}
+  {{- with $.Page.Resources.Get $sidecar -}}
+    {{- $caption = .Content | plainify -}}
+  {{- end -}}
+  {{- $thumb := .Resize "600x q80" -}}
+  {{- $full := .Resize "2048x q85" -}}
+  <figure class="pswp-figure" itemprop="associatedMedia" itemscope itemtype="https://schema.org/ImageObject">
+    <a href="{{ $full.RelPermalink }}" data-pswp-src="{{ $full.RelPermalink }}"
+       data-pswp-width="{{ $full.Width }}" data-pswp-height="{{ $full.Height }}"
+       data-pswp-caption="{{ $caption }}" target="_blank" rel="noopener">
+      <img src="{{ $thumb.RelPermalink }}" loading="lazy" decoding="async"
+           width="{{ $thumb.Width }}" height="{{ $thumb.Height }}"
+           alt="{{ $caption }}" itemprop="thumbnail">
+    </a>
+  </figure>
+{{- end -}}
+</div>
+{{- end -}}

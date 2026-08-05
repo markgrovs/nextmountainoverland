@@ -1,31 +1,44 @@
-{{ $images := split (.Get "images") "," }}
-<div class="gallery">
-  {{ range $images }}
-    {{ $img := trim . " " }}
-    <div class="gallery-item">
-      <img src="{{ $img }}" loading="lazy" alt="">
-    </div>
-  {{ end }}
+{{- /*
+  Gallery shortcode — page-bundle aware, PhotoSwipe lightbox.
+
+  Usage (auto-collect all images in the current page bundle):
+    {{< gallery >}}
+
+  Usage (explicit glob pattern within the bundle):
+    {{< gallery pattern="images/*.jpg" >}}
+
+  Usage (filter to a subfolder, e.g. only the "wide" shots):
+    {{< gallery pattern="images/wide/*" >}}
+
+  Each image may have an optional sidecar <name>.md file whose body
+  becomes the PhotoSwipe caption. EXIF is preserved by Hugo's image pipeline.
+*/ -}}
+{{- $pattern := .Get "pattern" | default "*" -}}
+{{- $imgs := .Page.Resources.Match $pattern -}}
+{{- $imgs = sort $imgs "Name" "asc" -}}
+{{- if not $imgs -}}
+  {{- errorf "gallery shortcode in %q: no page resources matched pattern %q" .File.Path $pattern -}}
+{{- end -}}
+
+<div class="pswp-gallery" itemscope itemtype="https://schema.org/ImageGallery">
+{{- range $imgs -}}
+  {{- if (not (in (slice ".md" ".json" ".yaml" ".yml" ".txt") (path.Ext .Name))) -}}
+    {{- $caption := "" -}}
+    {{- $sidecar := printf "%s.md" (strings.TrimSuffix (path.Ext .Name) .Name) -}}
+    {{- with $.Page.Resources.Get $sidecar -}}
+      {{- $caption = .Content | plainify -}}
+    {{- end -}}
+    {{- $thumb := .Resize "600x q80" -}}
+    {{- $full := .Resize "2048x q85" -}}
+  <figure class="pswp-figure" itemprop="associatedMedia" itemscope itemtype="https://schema.org/ImageObject">
+    <a href="{{ $full.RelPermalink }}" data-pswp-src="{{ $full.RelPermalink }}"
+       data-pswp-width="{{ $full.Width }}" data-pswp-height="{{ $full.Height }}"
+       data-pswp-caption="{{ $caption }}" target="_blank" rel="noopener">
+      <img src="{{ $thumb.RelPermalink }}" loading="lazy" decoding="async"
+           width="{{ $thumb.Width }}" height="{{ $thumb.Height }}"
+           alt="{{ $caption }}" itemprop="thumbnail">
+    </a>
+  </figure>
+  {{- end -}}
+{{- end -}}
 </div>
-
-<style>
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1rem;
-  margin: 2rem 0;
-}
-
-.gallery-item img {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-  border-radius: 8px;
-  transition: transform 0.3s ease;
-}
-
-.gallery-item img:hover {
-  transform: scale(1.05);
-  cursor: pointer;
-}
-</style>

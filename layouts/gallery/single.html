@@ -1,0 +1,27 @@
+{{- /* Gallery album single — renders the album's own photos via the gallery shortcode. */ -}}
+{{- define "main" -}}
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">{{ .Title }}</h1>
+    {{- with .Description }}
+    <div class="post-description">{{ . }}</div>
+    {{- end }}
+    <div class="post-meta">
+      <time>{{ .Date.Format "January 2, 2006" }}</time>
+    </div>
+  </header>
+
+  {{- .Content }}
+
+  {{- /* Auto-render all images in the album's page bundle as a lightbox gallery. */ -}}
+  {{- if .Resources.ByType "image" -}}
+  {{- partial "gallery-render.html" . -}}
+  {{- end -}}
+
+  <footer class="post-footer">
+    <a href="{{ .Section | relURL }}">&larr; Back to {{ .Section | title }}</a>
+  </footer>
+</article>
+
+{{- end -}}

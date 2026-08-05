@@ -1,0 +1,60 @@
+/* Gallery album index — grid of cover cards. */
+.gallery-albums {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin: 1.5rem 0;
+}
+
+.gallery-album-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--card-bg, #fff);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gallery-album-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.gallery-album-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.gallery-album-meta {
+  padding: 0.75rem 1rem 1rem;
+}
+
+.gallery-album-meta h2 {
+  margin: 0 0 0.25rem;
+  font-size: 1.1rem;
+}
+
+.gallery-album-meta p {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  color: var(--secondary, #666);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.gallery-album-date {
+  font-size: 0.8rem;
+  color: var(--secondary, #888);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+[data-theme="dark"] .gallery-album-card {
+  background: var(--card-bg, #1a1a1a);
+}

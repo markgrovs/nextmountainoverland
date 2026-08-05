@@ -1,0 +1,5 @@
+{{- /* PhotoSwipe 5 lightbox — loaded on any page that renders a gallery. */ -}}
+{{- if or (.HasShortcode "gallery") (eq .Layout "gallery") (eq .Section "gallery") -}}
+<link rel="stylesheet" href="https://unpkg.com/photoswipe@5.4.4/dist/photoswipe.css">
+<link rel="stylesheet" href="https://unpkg.com/photoswipe@5.4.4/dist/default-skin/default-skin.css">
+{{- end -}}

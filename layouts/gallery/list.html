@@ -1,0 +1,41 @@
+{{- /* Gallery section list — renders each album (page bundle) as a cover card. */ -}}
+{{- define "main" -}}
+
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}
+  <p class="page-description">{{ . }}</p>
+  {{- end }}
+</header>
+
+{{- .Content }}
+
+<div class="gallery-albums">
+  {{- range .Pages -}}
+  {{- $cover := false -}}
+  {{- with .Params.cover.image -}}
+    {{- $cover = $.Resources.Get . -}}
+  {{- end -}}
+  {{- if not $cover -}}
+    {{- $imgs := .Resources.ByType "image" -}}
+    {{- with $imgs -}}
+      {{- $cover = index . 0 -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if not $cover -}}{{- continue -}}{{- end -}}
+  {{- $thumb := $cover.Resize "600x q80" -}}
+  <a href="{{ .RelPermalink }}" class="gallery-album-card">
+    <img src="{{ $thumb.RelPermalink }}" loading="lazy" alt="{{ .Title }}"
+         width="{{ $thumb.Width }}" height="{{ $thumb.Height }}">
+    <div class="gallery-album-meta">
+      <h2>{{ .Title }}</h2>
+      {{- with .Description }}
+      <p>{{ . }}</p>
+      {{- end }}
+      <span class="gallery-album-date">{{ .Date.Format "January 2006" }}</span>
+    </div>
+  </a>
+  {{- end -}}
+</div>
+
+{{- end -}}
