@@ -15,7 +15,7 @@
 
 # Preview branch deploy context
 [context.preview]
-  command = "hugo --gc --minify --buildDrafts --buildFuture --baseURL https://preview.nextmountainoverland.com/"
+  command = "hugo --gc --minify --buildDrafts --buildFuture --baseURL $DEPLOY_PRIME_URL"
   [context.preview.environment]
     HUGO_ENV = "preview"
 
