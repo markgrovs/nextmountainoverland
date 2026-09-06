@@ -1,0 +1,201 @@
+{{- define "main" }}
+
+{{ partial "icons.svg" . }}
+
+<div class="nmo-landing">
+  <!-- Hero Section -->
+  <header class="nmo-hero">
+    {{ $heroSrc := "" }}
+    {{ if (fileExists "static/images/hero/nextmtn-hero.png") }}
+      {{ $heroSrc = "/images/hero/nextmtn-hero.png" }}
+    {{ else if (fileExists "static/images/hero/nextmtn-hero.jpg") }}
+      {{ $heroSrc = "/images/hero/nextmtn-hero.jpg" }}
+    {{ end }}
+    {{ if $heroSrc }}
+    <div class="nmo-hero__media">
+      <img src="{{ $heroSrc }}" alt="Next Mountain Overland" class="nmo-hero__img" loading="eager" />
+      <div class="nmo-hero__gradient"></div>
+    </div>
+    {{ end }}
+
+    <div class="nmo-hero__inner">
+      <div class="nmo-tagline-badge">
+        <span class="nmo-pulse"></span>
+        <span class="nmo-badge-text">Two Wheels &bull; Four Wheels &bull; Open Horizon</span>
+      </div>
+
+      <h1 class="nmo-hero__title">
+        The road isn't a route.<br>
+        <span class="nmo-text-highlight">It's a way of being.</span>
+      </h1>
+
+      <p class="nmo-hero__lede">
+        We're <strong>Mark &amp; Valarie</strong>. We traded conventional routine for high-clearance curiosity—roaming the remote backcountry of North America in our custom heavy expedition rig (<em>NextMtn</em>) while training and preparing for our two-year journey down the Pan-American Highway on dual-sport motorcycles.
+      </p>
+
+      <div class="nmo-hero__actions">
+        <a href="#dispatch" class="nmo-btn nmo-btn--primary">Read Dispatches</a>
+        <a href="/gallery/" class="nmo-btn nmo-btn--ghost">Field Gallery &rarr;</a>
+        <a href="/about/" class="nmo-btn nmo-btn--text">Our Story</a>
+      </div>
+
+      <!-- Quick Telemetry Strip -->
+      <div class="nmo-telemetry">
+        <div class="nmo-telemetry__item">
+          <span class="nmo-telemetry__label">Expedition Base</span>
+          <span class="nmo-telemetry__val">F-550 NextMtn 4x4</span>
+        </div>
+        <div class="nmo-telemetry__divider"></div>
+        <div class="nmo-telemetry__item">
+          <span class="nmo-telemetry__label">Scout Dual-Sports</span>
+          <span class="nmo-telemetry__val">CRF 300L Rally Twin</span>
+        </div>
+        <div class="nmo-telemetry__divider"></div>
+        <div class="nmo-telemetry__item">
+          <span class="nmo-telemetry__label">Expedition Horizon</span>
+          <span class="nmo-telemetry__val">Pan-Am 2027</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Live Location Beacon -->
+  {{- if .Site.Data.location.current }}
+  <section class="nmo-beacon-card">
+    <div class="nmo-beacon-card__radar">
+      <span class="nmo-radar-ping"></span>
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+      </svg>
+    </div>
+    <div class="nmo-beacon-card__body">
+      <div class="nmo-beacon-card__meta">
+        <span class="nmo-pill">Current Field Position</span>
+        {{- if .Site.Data.location.current.updated }}
+        <span class="nmo-beacon-card__date">Logged {{ .Site.Data.location.current.updated }}</span>
+        {{- end }}
+      </div>
+      <h3 class="nmo-beacon-card__place">{{ .Site.Data.location.current.place }}</h3>
+      {{- if .Site.Data.location.current.description }}
+      <p class="nmo-beacon-card__desc">{{ .Site.Data.location.current.description }}</p>
+      {{- end }}
+      {{- if .Site.Data.location.current.coordinates }}
+      <div class="nmo-beacon-card__coords">
+        <span>LAT {{ printf "%.4f" .Site.Data.location.current.coordinates.lat }}°</span>
+        <span>&bull;</span>
+        <span>LON {{ printf "%.4f" .Site.Data.location.current.coordinates.lon }}°</span>
+      </div>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+
+  <!-- The Three Pillars of the Adventure -->
+  <section class="nmo-pillars">
+    <div class="nmo-pillar-card">
+      <div class="nmo-pillar-card__index">01</div>
+      <div class="nmo-pillar-card__icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+      </div>
+      <h4>Heavy Basecamp</h4>
+      <p>Self-sufficient off-grid overland living built atop an earth-roaming F-550. Solar arrays, extended water capacity, and high-latitude resilience.</p>
+    </div>
+
+    <div class="nmo-pillar-card">
+      <div class="nmo-pillar-card__index">02</div>
+      <div class="nmo-pillar-card__icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+      </div>
+      <h4>Light Recon &amp; Dirt</h4>
+      <p>Twin Honda CRF 300L Rally motorcycles optimized for backcountry scouting, high-clearance mountain passes, and lightweight navigation.</p>
+    </div>
+
+    <div class="nmo-pillar-card">
+      <div class="nmo-pillar-card__index">03</div>
+      <div class="nmo-pillar-card__icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg>
+      </div>
+      <h4>The 2027 Pan-Am</h4>
+      <p>A multi-year overland expedition tracing the Western Hemisphere from the Rocky Mountains through Latin America to the tip of Tierra del Fuego.</p>
+    </div>
+  </section>
+
+  <!-- Dispatches / Field Notes Section -->
+  <section class="nmo-dispatches" id="dispatch">
+    <div class="nmo-section-head">
+      <div>
+        <span class="nmo-eyebrow">From The Field</span>
+        <h2 class="nmo-section-title">Latest Dispatches &amp; Logs</h2>
+      </div>
+      <a href="/posts/" class="nmo-view-all">All Posts &rarr;</a>
+    </div>
+
+    {{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+    {{- $paginator := .Paginate $pages }}
+
+    <div class="nmo-post-grid">
+      {{- range $index, $page := $paginator.Pages }}
+      <article class="nmo-post-card {{ if eq $index 0 }}nmo-post-card--featured{{ end }}">
+        {{- $isHidden := (site.Params.cover.hidden | default site.Params.cover.hiddenInList) }}
+        {{- partial "cover.html" (dict "cxt" . "IsHome" true "isHidden" $isHidden) }}
+        
+        <div class="nmo-post-card__content">
+          <div class="nmo-post-card__meta">
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+            <span class="nmo-post-card__dot">&bull;</span>
+            <span>{{ .ReadingTime }} min read</span>
+          </div>
+
+          <h3 class="nmo-post-card__title">
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+          </h3>
+
+          <p class="nmo-post-card__excerpt">
+            {{ .Summary | plainify | htmlUnescape | truncate 160 }}
+          </p>
+
+          <div class="nmo-post-card__footer">
+            <a class="nmo-read-link" href="{{ .Permalink }}">Read Dispatch &rarr;</a>
+            {{- if .Params.tags }}
+            <div class="nmo-tags-list">
+              {{- range first 2 .Params.tags }}
+              <span class="nmo-tag">#{{ . }}</span>
+              {{- end }}
+            </div>
+            {{- end }}
+          </div>
+        </div>
+      </article>
+      {{- end }}
+    </div>
+
+    {{- if gt $paginator.TotalPages 1 }}
+    <footer class="page-footer">
+      <nav class="pagination">
+        {{- if $paginator.HasPrev }}
+        <a class="prev" href="{{ $paginator.Prev.URL | absURL }}">«&nbsp;{{ i18n "prev_page" | default "Prev" }}</a>
+        {{- end }}
+        {{- if $paginator.HasNext }}
+        <a class="next" href="{{ $paginator.Next.URL | absURL }}">{{ i18n "next_page" | default "Next" }}&nbsp;»</a>
+        {{- end }}
+      </nav>
+    </footer>
+    {{- end }}
+  </section>
+
+  <!-- Field Log Signoff / Ethos -->
+  <section class="nmo-ethos">
+    <div class="nmo-ethos__inner">
+      <div class="nmo-ethos__quote">
+        &ldquo;The best trails don’t offer turn-by-turn guidance—they demand complete attention, honest preparation, and the willingness to see what’s past the next ridge.&rdquo;
+      </div>
+      <div class="nmo-ethos__signoff">
+        <span>Mark &amp; Valarie</span>
+        <span class="nmo-ethos__sub">Next Mountain Overland &bull; San Juan Mountains, Colorado</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+{{- end }}

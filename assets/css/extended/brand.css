@@ -1,2 +1,606 @@
 /* Pull the hero closer under the nav */
 .brand-hero { margin-top: 0.5rem; }
+
+/* ==========================================================================
+   Next Mountain Overland - Landing Page Custom Theme & Design Language
+   Derived from algorithmic seed inspiration
+   ========================================================================== */
+
+:root {
+  --nmo-sand-50: #faf8f5;
+  --nmo-sand-100: #f4ede4;
+  --nmo-sand-200: #e7dac9;
+  --nmo-terra: #c85a32;
+  --nmo-terra-dark: #a94421;
+  --nmo-terra-soft: rgba(200, 90, 50, 0.12);
+  --nmo-slate: #2b3a42;
+  --nmo-slate-dark: #1b262c;
+  --nmo-amber: #e5a93c;
+  --nmo-sage: #5e705b;
+  --nmo-sage-light: #8ca388;
+  --nmo-border: rgba(43, 58, 66, 0.12);
+  --nmo-radius: 12px;
+}
+
+.dark {
+  --nmo-sand-50: #121619;
+  --nmo-sand-100: #1a2024;
+  --nmo-sand-200: #263137;
+  --nmo-border: rgba(255, 255, 255, 0.08);
+  --nmo-terra-soft: rgba(200, 90, 50, 0.22);
+}
+
+/* Base Landing container */
+.nmo-landing {
+  max-width: 1080px;
+  margin: 0 auto 3rem auto;
+  padding: 0 0.5rem;
+}
+
+/* ==================== HERO SECTION ==================== */
+.nmo-hero {
+  position: relative;
+  background: linear-gradient(145deg, var(--nmo-slate-dark) 0%, #151e23 100%);
+  border-radius: var(--nmo-radius);
+  overflow: hidden;
+  color: #f7fafc;
+  margin-top: 0.75rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 20px 40px -15px rgba(0,0,0,0.3);
+  border: 1px solid var(--nmo-border);
+}
+
+.nmo-hero__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.nmo-hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%;
+  opacity: 0.42;
+  filter: contrast(1.08) saturate(1.1);
+}
+
+.nmo-hero__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg, 
+    rgba(21, 30, 35, 0.94) 0%, 
+    rgba(21, 30, 35, 0.85) 45%, 
+    rgba(21, 30, 35, 0.55) 100%
+  );
+}
+
+.nmo-hero__inner {
+  position: relative;
+  z-index: 2;
+  padding: 3.5rem 2.5rem 2.75rem 2.5rem;
+  max-width: 760px;
+}
+
+.nmo-tagline-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(229, 169, 60, 0.15);
+  border: 1px solid rgba(229, 169, 60, 0.35);
+  color: var(--nmo-amber);
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+
+.nmo-pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--nmo-amber);
+  box-shadow: 0 0 8px var(--nmo-amber);
+  animation: nmo-glow 2s infinite ease-in-out;
+}
+
+@keyframes nmo-glow {
+  0%, 100% { opacity: 0.6; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.nmo-hero__title {
+  font-size: clamp(2rem, 4.2vw, 3.2rem);
+  line-height: 1.15;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 1.25rem 0;
+  letter-spacing: -0.025em;
+}
+
+.nmo-text-highlight {
+  background: linear-gradient(120deg, #f7d59b 0%, var(--nmo-amber) 60%, var(--nmo-terra) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nmo-hero__lede {
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  line-height: 1.65;
+  color: #d1dbe0;
+  margin-bottom: 2rem;
+  font-weight: 400;
+}
+
+.nmo-hero__lede strong {
+  color: #ffffff;
+}
+
+.nmo-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.nmo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.4rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none !important;
+  transition: all 0.2s ease;
+}
+
+.nmo-btn--primary {
+  background-color: var(--nmo-terra);
+  color: #ffffff !important;
+  border: 1px solid transparent;
+  box-shadow: 0 4px 14px rgba(200, 90, 50, 0.35);
+}
+
+.nmo-btn--primary:hover {
+  background-color: var(--nmo-terra-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(200, 90, 50, 0.45);
+}
+
+.nmo-btn--ghost {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+}
+
+.nmo-btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.nmo-btn--text {
+  color: #e2e8f0 !important;
+  padding: 0.75rem 0.75rem;
+  font-size: 0.92rem;
+}
+
+.nmo-btn--text:hover {
+  color: var(--nmo-amber) !important;
+}
+
+/* Telemetry Strip inside Hero */
+.nmo-telemetry {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.nmo-telemetry__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.nmo-telemetry__label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #8da4b0;
+  font-weight: 600;
+}
+
+.nmo-telemetry__val {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.nmo-telemetry__divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ==================== BEACON LOCATION CARD ==================== */
+.nmo-beacon-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  margin-bottom: 2.25rem;
+  background: var(--entry);
+  border-radius: var(--nmo-radius);
+  border: 1px solid var(--nmo-border);
+  border-left: 5px solid var(--nmo-terra);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+
+.nmo-beacon-card__radar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--nmo-terra-soft);
+  color: var(--nmo-terra);
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.nmo-radar-ping {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 2px solid var(--nmo-terra);
+  opacity: 0.4;
+  animation: radar-pulse 2.2s infinite cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@keyframes radar-pulse {
+  0% { transform: scale(0.85); opacity: 0.8; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+.nmo-beacon-card__body {
+  flex: 1;
+}
+
+.nmo-beacon-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.35rem;
+}
+
+.nmo-pill {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--nmo-terra);
+}
+
+.nmo-beacon-card__date {
+  font-size: 0.78rem;
+  color: var(--secondary);
+}
+
+.nmo-beacon-card__place {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0 0 0.35rem 0;
+  letter-spacing: -0.015em;
+}
+
+.nmo-beacon-card__desc {
+  font-size: 0.96rem;
+  color: var(--content);
+  margin: 0 0 0.6rem 0;
+  line-height: 1.5;
+}
+
+.nmo-beacon-card__coords {
+  display: inline-flex;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  color: var(--secondary);
+  background: rgba(125, 125, 125, 0.08);
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+}
+
+/* ==================== THREE EXPEDITION PILLARS ==================== */
+.nmo-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 3.5rem;
+}
+
+.nmo-pillar-card {
+  position: relative;
+  background: var(--entry);
+  border: 1px solid var(--nmo-border);
+  border-radius: var(--nmo-radius);
+  padding: 1.75rem 1.4rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nmo-pillar-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+.nmo-pillar-card__index {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--secondary);
+  opacity: 0.25;
+  font-family: ui-monospace, monospace;
+}
+
+.nmo-pillar-card__icon {
+  color: var(--nmo-terra);
+  margin-bottom: 1rem;
+}
+
+.nmo-pillar-card h4 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0 0 0.5rem 0;
+}
+
+.nmo-pillar-card p {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--secondary);
+  margin: 0;
+}
+
+/* ==================== DISPATCHES SECTION ==================== */
+.nmo-dispatches {
+  margin-bottom: 3.5rem;
+}
+
+.nmo-section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 1.75rem;
+  border-bottom: 1px solid var(--nmo-border);
+  padding-bottom: 0.75rem;
+}
+
+.nmo-eyebrow {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  color: var(--nmo-terra);
+  margin-bottom: 0.2rem;
+}
+
+.nmo-section-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.nmo-view-all {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--nmo-terra) !important;
+  text-decoration: none;
+}
+
+.nmo-view-all:hover {
+  text-decoration: underline;
+}
+
+.nmo-post-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.nmo-post-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--entry);
+  border: 1px solid var(--nmo-border);
+  border-radius: var(--nmo-radius);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nmo-post-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+.nmo-post-card--featured {
+  grid-column: span 2;
+}
+
+.nmo-post-card .entry-cover {
+  margin: 0;
+  max-height: 320px;
+  overflow: hidden;
+}
+
+.nmo-post-card .entry-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nmo-post-card__content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.nmo-post-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--secondary);
+  margin-bottom: 0.4rem;
+}
+
+.nmo-post-card__title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0 0 0.65rem 0;
+}
+
+.nmo-post-card__title a {
+  color: var(--primary) !important;
+  text-decoration: none;
+}
+
+.nmo-post-card__title a:hover {
+  color: var(--nmo-terra) !important;
+}
+
+.nmo-post-card__excerpt {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--content);
+  margin: 0 0 1.25rem 0;
+  flex: 1;
+}
+
+.nmo-post-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid var(--nmo-border);
+}
+
+.nmo-read-link {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--nmo-terra) !important;
+  text-decoration: none;
+}
+
+.nmo-tags-list {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.nmo-tag {
+  font-size: 0.72rem;
+  color: var(--secondary);
+  background: rgba(125, 125, 125, 0.08);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+}
+
+/* ==================== ETHOS / QUOTE SECTION ==================== */
+.nmo-ethos {
+  background: var(--entry);
+  border: 1px solid var(--nmo-border);
+  border-radius: var(--nmo-radius);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.nmo-ethos__inner {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.nmo-ethos__quote {
+  font-size: clamp(1.1rem, 1.4vw, 1.28rem);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--primary);
+  margin-bottom: 1.25rem;
+}
+
+.nmo-ethos__signoff {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.nmo-ethos__sub {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ==================== RESPONSIVE ADJUSTMENTS ==================== */
+@media (max-width: 860px) {
+  .nmo-pillars {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .nmo-post-grid {
+    grid-template-columns: 1fr;
+  }
+  .nmo-post-card--featured {
+    grid-column: span 1;
+  }
+  .nmo-hero__inner {
+    padding: 2.5rem 1.5rem;
+  }
+  .nmo-telemetry {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .nmo-telemetry__divider {
+    display: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .nmo-beacon-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .nmo-hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .nmo-btn {
+    text-align: center;
+  }
+}
