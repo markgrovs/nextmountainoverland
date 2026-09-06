@@ -3,28 +3,25 @@
   command = "hugo --gc --minify"
 
 [build.environment]
-  HUGO_VERSION = "0.151.0"
+  HUGO_VERSION = "0.145.0"
   HUGO_ENV = "production"
   HUGO_ENABLEGITINFO = "true"
 
-# Production (custom domain) - will activate when domain is pointed
+# Production context (main branch)
 [context.production]
   command = "hugo --gc --minify --baseURL https://nextmountainoverland.com/"
+  [context.production.environment]
+    HUGO_ENV = "production"
 
-[context.production.environment]
-  HUGO_ENV = "production"
+# Preview branch deploy context
+[context.preview]
+  command = "hugo --gc --minify --buildDrafts --buildFuture --baseURL https://preview.nextmountainoverland.com/"
+  [context.preview.environment]
+    HUGO_ENV = "preview"
 
-# Deploy previews (PRs and branch deploys)
-[context.deploy-preview]
-  command = "hugo --gc --minify --buildFuture --baseURL $DEPLOY_PRIME_URL"
-
-# Branch deploys (like dev branches)
+# Default branch-deploy fallback for other branches (like drafts/backup)
 [context.branch-deploy]
-  command = "hugo --gc --minify --baseURL $DEPLOY_PRIME_URL"
-
-# Main branch (before custom domain is set up)
-[context.main]
-  command = "hugo --gc --minify --baseURL https://nextmountainoverland.com/"
+  command = "echo 'Skipping build for non-preview branch' && exit 0"
 
 [[redirects]]
   from = "/rss"
