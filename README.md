@@ -1,169 +1,68 @@
 # Next Mountain Overland
 
-Hugo-based travel blog for Mark and Valarie's overland adventures.
+Mark and Valarie's travel journal, built with Hugo and the local Travelbook theme.
 
-## About
+## Local development
 
-This site documents our journey from RV adventures in NextMtn to preparing for our 2027 Pan American Highway motorcycle expedition from Colorado to Argentina.
+Requires Hugo 0.166.0 (the Netlify pin), Python 3 for checks, and Node.js for appearance tests. After cloning, initialize the pinned themes with `git submodule update --init --recursive`.
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/4e43bce6-b2cf-4cb4-a258-26495c4a5984/deploy-status)](https://app.netlify.com/projects/nextmountainoverland/deploys)
-
-## Quick Start
-
-### Prerequisites
-
-- [Hugo Extended](https://gohugo.io/installation/) (v0.120.0 or later)
-- Git
-
-### Installation
-
-1. Clone this repository:
-```bash
-git clone https://github.com/YOUR-USERNAME/nextmountainoverland.git
-cd nextmountainoverland
+```sh
+hugo server
 ```
 
-2. Install the PaperMod theme:
-```bash
-git submodule add --depth=1 https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod
-git submodule update --init --recursive
+Open http://localhost:1313/. Add `--buildDrafts --buildFuture` for a preview. Draft source remains in Git and may be exposed by preview builds; keep private originals outside eligible publishing paths.
+
+The self-contained theme is in `themes/travelbook/`. Its labeled demo is outside normal content:
+
+```sh
+hugo server --source themes/travelbook/exampleSite --renderToMemory --disableFastRender
 ```
 
-3. Run the development server:
-```bash
-hugo server -D
+Demo fixtures and the retained legacy validation samples are excluded from the active site's production and preview output.
+
+## Content
+
+- `content/posts/<stable-name>/index.md`: Journal entries at `/dispatches/<stable-name>/`. Text, photographs, long stories, and video context share one template.
+- `content/cairns/<stable-name>/index.md`: Practical guides.
+- `journeys: [trip-id]`: Groups Journal entries and Cairns. Optional introduction at `content/journeys/<trip-id>/_index.md`.
+- `content/about/_index.md`: Existing supplied About page.
+
+The Obsidian → Workbench publisher → GitHub → Netlify workflow remains in place. The daemon currently publishes posts bundles, draft Markdown, and flat pages; Cairn/journey/media integration still requires separate publisher work. See [the publishing contract](docs/publishing-contract.md).
+
+For local bundle authoring:
+
+```sh
+hugo new content posts/my-entry/index.md
+hugo new content cairns/my-guide/index.md
 ```
 
-4. Open your browser to `http://localhost:1313`
+New content starts as `draft: true`. Journal title is optional; location, mileage, journeys, summary, and IndieWeb relationship fields are optional. [The theme guide](themes/travelbook/README.md) documents authoring and media syntax.
 
-## Creating Content
+## Verification
 
-### New Post
-
-```bash
-hugo new posts/my-new-post.md
-```
-
-This creates a new post with the proper front matter template.
-
-### Adding Images
-
-1. Place images in `static/images/`
-2. Reference in posts: `![Alt text](/images/photo.jpg)`
-3. Or use the custom shortcode: `{{</* img src="/images/photo.jpg" alt="Description" caption="Photo caption" */>}}`
-
-### Photo Gallery
-
-Use the gallery shortcode:
-```
-{{</* gallery images="/images/photo1.jpg,/images/photo2.jpg,/images/photo3.jpg" */>}}
-```
-
-### Instagram Embeds
-
-```
-{{</* instagram "POST_ID" */>}}
-```
-
-## Project Structure
-
-```
-nextmountainoverland/
-├── archetypes/          # Content templates
-├── content/
-│   ├── posts/          # Blog posts
-│   └── about/          # About pages
-├── layouts/
-│   └── shortcodes/     # Custom shortcodes
-├── static/
-│   └── images/         # Images and media
-├── themes/
-│   └── PaperMod/       # Theme (git submodule)
-└── hugo.toml           # Site configuration
-```
-
-## Deployment
-
-### Netlify
-
-1. Push to GitHub
-2. Connect repository to Netlify
-3. Build settings:
-   - Build command: `hugo --gc --minify`
-   - Publish directory: `public`
-   - Environment variables: `HUGO_VERSION = 0.120.0`
-
-### Manual Build
-
-```bash
+```sh
+python3 scripts/check_travelbook.py --hugo hugo
+node themes/travelbook/tests/appearance.cjs
 hugo --gc --minify
 ```
 
-Output will be in the `public/` directory.
+Checks cover the real site, the theme demo, standalone installation, rendered links, feeds, sample exclusion, draft asset exclusion, media failures, and IndieWeb fields. Generated output and test artifacts are ignored by Git.
 
-## Configuration
+## Publishing and rollback
 
-Main configuration is in `hugo.toml`. Key settings:
+`netlify.toml` pins Hugo 0.166.0. Journal redirects preserve existing `/posts/` links. Production RSS includes published Journal and Cairns entries; structural pages and fixtures are excluded. The contact form remains a Netlify form.
 
-- `baseURL`: Update to your domain
-- `title`: Site title
-- `params`: Theme-specific settings
-- `menu`: Navigation menu items
+Travelbook is a Git submodule from [markgrovs/travelbook](https://github.com/markgrovs/travelbook). This site pins its theme commit; commit the updated submodule pointer whenever upgrading the theme. The PaperMod submodule remains at `themes/PaperMod/`; previous configuration, layouts, styles, and archetypes are retained under `legacy/papermod/` for rollback. Preview it with:
 
-## Writing Tips
-
-### Front Matter
-
-Every post should have:
-```yaml
----
-title: "Post Title"
-date: 2025-10-04
-draft: false
-tags: ["tag1", "tag2"]
-categories: ["Category"]
-description: "Brief description for SEO"
-cover:
-    image: "/images/cover.jpg"
-    alt: "Cover image description"
-    caption: "Photo caption"
----
+```sh
+git submodule update --init --recursive
+hugo server --config legacy/papermod/hugo.toml
 ```
 
-### Content Organization
+See [deployment instructions](DEPLOYMENT.md). Committing or pushing this branch does not itself verify a Netlify deployment.
 
-- Use `<!--more-->` to create post excerpts
-- Add tags organically (they auto-generate tag pages)
-- Use descriptive filenames (becomes the URL slug)
+## IndieWeb
 
-## Open Web Features
+Travelbook emits microformats for entries, feeds, authors, publication/update dates, content, location, categories, and canonical URLs. It supports supplied reply/like/repost/syndication fields, `rel="me"` profile links, and optional endpoint discovery. No Webmention, IndieAuth, Micropub, or social delivery service is enabled automatically. [Configuration and supported fields](themes/travelbook/README.md#indieweb).
 
-- Full-content RSS feed at `/index.xml`
-- Semantic HTML markup
-- No tracking by default
-- Privacy-respecting embeds
-
-## Customization
-
-### Colors and Styling
-
-PaperMod supports custom CSS. Create `assets/css/extended/custom.css` for overrides.
-
-### Adding New Sections
-
-1. Create directory in `content/`
-2. Add `_index.md` for section page
-3. Update menu in `hugo.toml`
-
-## Support
-
-- [Hugo Documentation](https://gohugo.io/documentation/)
-- [PaperMod Wiki](https://github.com/adityatelange/hugo-PaperMod/wiki)
-
-## License
-
-Content © Mark & Valarie. All rights reserved.
-
----
-
-Built with ❤️ and [Hugo](https://gohugo.io/)
+Content © Mark & Valarie. All rights reserved. The Travelbook theme is MIT licensed.
