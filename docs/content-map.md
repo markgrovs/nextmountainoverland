@@ -38,4 +38,12 @@ All types are intended to be authored in Obsidian. The existing publisher mappin
 
 ## Visual review
 
-Homepage photographs remain optional and unset in production configuration. The isolated theme demo has synthetic photographs for exercising the overlapping layout. The existing video shortcode autoplays muted; the original no-autoplay preference still needs resolution separately.
+The draft-only `content/home-preview/index.md` bundle supplies the demonstration welcome and two AI-generated illustrative photos. `params.home_page` selects it when draft builds include it; production falls back to the normal homepage and never emits these draft photos. This is a stable welcome, not a Journal entry.
+
+Desktop placement: welcome and latest Journal note on the left; overlapping opening photos on the right. Below, the left column shows four Journeys (first featured with a thumbnail); the right shows three recent Cairns with optional thumbnails. The landscape footer holds navigation, following links, and appearance controls. On phones these sections stack in that order. Daily entries remain in the Journal archive and associated Journey; there is no extra homepage archive list.
+
+The preview uses two illustrative images repeatedly to demonstrate optional thumbnails. They are not photographs of the travelers or evidence of real trips. Homepage body/photo and thumbnail interfaces are ready in the theme; authoring and routing them through the publisher still needs integration. The existing video shortcode autoplays muted; the original no-autoplay preference still needs resolution separately.
+
+## Daily-note heading
+
+The daily-note, photo-note, video-note, and small trip examples intentionally omit `title`. The latest daily note displays `2026-10-31 Clarksdale, MS`, derived from `date` and `location`. All sample entry and Journey bundles supply illustrative `lat`, `long`, and `location` properties. The longer story and Cairns keep descriptive titles. The draft homepage introduction has empty location properties because it does not represent a dated stop. See the publishing contract for the complete metadata schema.

@@ -5,6 +5,8 @@ theme = 'travelbook'
 enableEmoji = true
 
 [params]
+  home_page = "/home" # Publisher-owned stable welcome bundle.
+  home_preview_page = "/home-preview" # Draft-only design fallback.
   author = 'Mark & Valarie'
   description = "Mark and Valarie's journey from RV adventures to the Pan American Highway on motorcycles"
   instagram = 'https://instagram.com/nextmountainoverland'

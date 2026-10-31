@@ -1,11 +1,13 @@
 ---
-title: "[Sample] A small moving moment"
 date: 2026-10-27
 draft: true
 fixture: true
 authors: [Design preview]
 journeys: [sample-florida-trip]
 summary: Written context with a synthetic video clip.
+lat: 34.20
+long: -90.57
+location: "Clarksdale, MS"
 ---
 
 > **Design sample — not an actual travel account.** Dates, places, and media demonstrate the layout.

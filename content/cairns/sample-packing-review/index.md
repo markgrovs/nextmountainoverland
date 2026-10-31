@@ -1,6 +1,8 @@
 ---
-title: "[Sample] A practical review or lesson"
+title: "What’s working for us"
 date: 2026-10-26
+thumbnail: thumbnail.png
+weight: 1
 draft: true
 fixture: true
 authors: [Design preview]
@@ -8,6 +10,9 @@ journeys: [sample-florida-trip]
 summary: A practical guide with contents navigation, a verification date, and a download.
 toc: true
 last_verified: 2026-10-30
+lat: 34.20
+long: -90.57
+location: "Clarksdale, MS"
 ---
 
 > **Design sample — not an actual travel account.** Dates, places, and media demonstrate the layout.

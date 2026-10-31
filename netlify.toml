@@ -19,6 +19,12 @@
   [context.preview.environment]
     HUGO_ENV = "preview"
 
+# Pull-request preview (the existing preview -> main PR).
+[context.deploy-preview]
+  command = "hugo --gc --minify --buildDrafts --buildFuture --baseURL $DEPLOY_PRIME_URL"
+  [context.deploy-preview.environment]
+    HUGO_ENV = "preview"
+
 # Default branch-deploy fallback for other branches (like drafts/backup)
 [context.branch-deploy]
   command = "echo 'Skipping build for non-preview branch' && exit 0"

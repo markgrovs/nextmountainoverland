@@ -1,12 +1,13 @@
 ---
-title: "[Sample] A short daily note"
-date: 2026-10-30
+date: 2026-10-31
 draft: true
 fixture: true
 authors: [Design preview]
 journeys: [sample-florida-trip]
-location: Sample town
 summary: A short text-only daily update, grouped with its trip.
+lat: 34.20
+long: -90.57
+location: "Clarksdale, MS"
 ---
 
 > **Design sample — not an actual travel account.** Dates, places, and media demonstrate the layout.

@@ -1,10 +1,15 @@
 ---
-title: "[Sample] Florida trip — layout demonstration"
+title: "Fall Motorcycle trip to Florida"
 date: 2026-10-25
+thumbnail: thumbnail.png
+weight: 1
 draft: true
 fixture: true
 authors: [Design preview]
 journeys: [sample-florida-trip]
+lat: 34.20
+long: -90.57
+location: "Clarksdale, MS"
 ---
 
 > **Design sample — not an actual travel account.** Dates, places, and media demonstrate the layout.

@@ -40,7 +40,9 @@ def main():
             require(not (actual/'dispatches/latest').exists(), 'Theme fixture leaked')
             samples = ('dispatches/sample-daily-note', 'dispatches/sample-photo-note',
                        'dispatches/sample-long-story', 'dispatches/sample-video-note',
-                       'cairns/sample-packing-review', 'journeys/sample-florida-trip')
+                       'cairns/sample-packing-review', 'journeys/sample-florida-trip', 'cairns/sample-route-notes',
+                       'cairns/sample-overnight-notes', 'journeys/sample-mountains',
+                       'journeys/sample-parks', 'journeys/sample-backroads')
             for sample in samples:
                 require((actual/sample/'index.html').is_file() == (name == 'real-preview'),
                         f'Sample visibility incorrect: {name} {sample}')
@@ -48,6 +50,12 @@ def main():
                 require(not any('sample-' in str(p.relative_to(actual)) for p in actual.rglob('*')),
                         'Draft sample resource leaked to production')
             real_home = (actual/'index.html').read_text()
+            if name == 'real-preview':
+                require('AI-generated illustrative photos' in real_home, 'Full homepage demonstration missing')
+                require('notebook-photos' in real_home and 'journey-thumbnail' in real_home and 'cairn-thumbnail' in real_home, 'Homepage photo placements missing')
+            else:
+                require('AI-generated illustrative photos' not in real_home, 'Draft homepage leaked')
+                require(not (actual/'home-preview').exists(), 'Draft homepage media leaked')
             require('h-entry' in real_home and 'p-summary' in real_home and 'h-card' in real_home, 'Site IndieWeb markup missing')
             require('Local design prototype' not in real_home, 'Demo label leaked')
             require('unpkg.com' not in real_home and 'identity.netlify' not in real_home, 'Legacy external scripts leaked')

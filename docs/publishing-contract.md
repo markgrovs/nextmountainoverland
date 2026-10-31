@@ -22,9 +22,9 @@ The render hook accepts current local page resources or proposed media-index ent
 
 ## Field Notebook theme interface
 
-The 2026-10-30 design revision presents a stable welcome and a compact latest-entry excerpt, with visible header navigation. Journeys and recent Cairns are derived from published content; up to five older journal entries link to the archive. Empty sections are omitted. Entry pages and RSS retain full content. Optional `location` (falling back to `place`) and `mileage` supplement the date.
+The 2026-10-30 design revision presents a stable welcome and a compact latest-entry excerpt, with visible header navigation. Up to four Journeys (ordered by Hugo weight/title) and three recent Cairns are derived from content. Journal archive access stays in the header/footer rather than an additional homepage list. Empty sections are omitted. Entry pages and RSS retain full content. Optional `location` (falling back to `place`) and `mileage` supplement the date.
 
-Warm paper, navy serif typography, rust accents, and optional overlapping photographs implement the Field Notebook direction. The opening works without images. `params.home_heading` controls its heading; `params.home_photos` accepts up to two approved delivery assets with source, author-written alt text, and optional caption. No mockup photos are installed in production. Publisher support for authoring these settings/assets from Obsidian is still separate integration work.
+Warm paper, navy serif typography, rust accents, and optional overlapping photographs implement the Field Notebook direction. The opening works without images. `params.home_heading` controls its heading; `params.home_photos` accepts up to two approved delivery assets with source, author-written alt text, and optional caption. `params.home_page` optionally selects a homepage bundle whose body and `home_photos` supply the welcome. Bundle photos are resolved before global assets. The configured `/home-preview` bundle is draft-only, labeled as a demonstration, and supplies AI-generated illustrative photos only in draft builds. Production falls back to the ordinary homepage. Journey and Cairn bundles may provide a `thumbnail` resource; images are decorative alongside descriptive links. A native SVG landscape footer completes the composition. Publisher support for authoring these settings/assets from Obsidian is still separate integration work.
 
 Reader-controlled Light/Dark buttons follow the device preference initially and remember an explicit choice. Without JavaScript, device appearance and core navigation/reading continue to work.
 
@@ -45,3 +45,24 @@ Only configured IndieAuth, Webmention, and Micropub endpoint URLs are advertised
 Phase B requires sanitized deployed service definitions, deployed revision identity, and Netlify branch/deploy settings. Theme activation was separately authorized on 2026-09-30. Publisher integration and POSSE still require separate authorization. No live publication is a test.
 
 The gallery section and gallery-validation post are excluded from active production and preview builds through Hugo cascades; their source files remain intact. Legacy templates/styles/configuration/archetypes are retained in legacy/papermod/. The prior theme configuration is recorded in legacy/papermod/hugo.toml; record compatible publisher manifest/state before any later publisher integration. Restore theme configuration independently from authored content. Keep POSSE off independently and preserve delivery receipts.
+
+## Journal location metadata
+
+Use these YAML properties for Journal entries and Cairns; Journey introductions can carry the same location context. Coordinates and labels are supplied by the authoring workflow. The theme performs no geocoding or device capture.
+
+```yaml
+---
+date: 2026-10-31
+lat: 34.20
+long: -90.57
+location: "Clarksdale, MS"
+journeys: [fall-motorcycle-trip-florida]
+draft: true
+---
+```
+
+Coordinates in this example and the design fixtures are approximate illustrative values, not captured travel positions. `lat` and `long` are decimal degrees, with negative longitude west of Greenwich. Latitude must be within -90..90 and longitude within -180..180. Supply both together; zero is valid. Empty properties are accepted while composing a draft. Existing content without coordinates remains compatible. `location` is the supplied display label; the theme does not infer it from coordinates. Legacy `place` remains a fallback.
+
+Omit `title` for daily notes: the heading becomes `YYYY-MM-DD location`, consistently on the entry, Journal/Journey lists, browser title, and RSS. With no place label, the fallback is the ISO date. A deliberately supplied title still wins for longer narratives and Cairns, whose date/location metadata remains visible. Stable filenames continue to determine URLs. Entry metadata uses an ISO date followed by the location. Coordinates power a normal OpenStreetMap link and h-geo markup, without embedding a live map or making a lookup request.
+
+`journeys` is a list of stable Journey identifiers; Journal entries and Cairns can belong to the same trip. Lists are generated automatically. The local archetypes provide the properties but do not install an Obsidian template. Capture tools and publisher integration remain separate work; this change defines the data contract expected by the site.

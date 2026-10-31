@@ -1,7 +1,8 @@
 ---
-title: "{{ replace .File.ContentBaseName "-" " " | title }}"
 date: {{ .Date }}
 draft: true
+lat:
+long:
+location: ""
+journeys: []
 ---
-
-Write your entry here.

@@ -6,6 +6,9 @@ fixture: true
 authors: [Design preview]
 journeys: [sample-florida-trip]
 summary: A longer narrative with sections, still part of the Journal.
+lat: 34.20
+long: -90.57
+location: "Clarksdale, MS"
 ---
 
 > **Design sample — not an actual travel account.** Dates, places, and media demonstrate the layout.
