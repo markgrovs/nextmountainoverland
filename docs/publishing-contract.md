@@ -20,9 +20,13 @@ Preferred authoring syntax:
 
 The render hook accepts current local page resources or proposed media-index entries. It emits dimensions and responsive selections without recompression and fails the build on missing images. Synthetic responsive JPEG fixtures and a PNG diagram demonstrate the proposed interface. Publisher generation, orientation correction, metadata stripping, source validation, and download ownership remain Phase B work.
 
-## Revised high-desert theme interface
+## Field Notebook theme interface
 
-The homepage now shows the latest entry in full, with older dispatches beneath it. Optional `location` (falling back to `place`) and `mileage` supplement the date. The presentation uses a single column, inline media, italic captions, system serif headings, and sans-serif prose. A prominent mixed-case serif masthead anchors the page. Reader-controlled Light/Dark buttons default to the device preference and remember an explicit choice in browser local storage; with JavaScript disabled the site follows device appearance.
+The 2026-10-30 design revision presents a stable welcome and a compact latest-entry excerpt, with visible header navigation. Journeys and recent Cairns are derived from published content; up to five older journal entries link to the archive. Empty sections are omitted. Entry pages and RSS retain full content. Optional `location` (falling back to `place`) and `mileage` supplement the date.
+
+Warm paper, navy serif typography, rust accents, and optional overlapping photographs implement the Field Notebook direction. The opening works without images. `params.home_heading` controls its heading; `params.home_photos` accepts up to two approved delivery assets with source, author-written alt text, and optional caption. No mockup photos are installed in production. Publisher support for authoring these settings/assets from Obsidian is still separate integration work.
+
+Reader-controlled Light/Dark buttons follow the device preference initially and remember an explicit choice. Without JavaScript, device appearance and core navigation/reading continue to work.
 
 `themes/travelbook/` is the pinned submodule from https://github.com/markgrovs/travelbook. Theme changes are committed and pushed in that repository first, then its updated commit is recorded in this site. See its README and `exampleSite/minimal.hugo.toml` for installation and explicit site settings.
 

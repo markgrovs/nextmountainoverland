@@ -38,8 +38,17 @@ def main():
             require(not (actual/'gallery').exists(), 'Legacy sample gallery or assets leaked')
             require(not (actual/'dispatches/2026-08-05-gallery-validation').exists(), 'Validation bundle leaked')
             require(not (actual/'dispatches/latest').exists(), 'Theme fixture leaked')
+            samples = ('dispatches/sample-daily-note', 'dispatches/sample-photo-note',
+                       'dispatches/sample-long-story', 'dispatches/sample-video-note',
+                       'cairns/sample-packing-review', 'journeys/sample-florida-trip')
+            for sample in samples:
+                require((actual/sample/'index.html').is_file() == (name == 'real-preview'),
+                        f'Sample visibility incorrect: {name} {sample}')
+            if name == 'real-production':
+                require(not any('sample-' in str(p.relative_to(actual)) for p in actual.rglob('*')),
+                        'Draft sample resource leaked to production')
             real_home = (actual/'index.html').read_text()
-            require('h-entry' in real_home and 'e-content' in real_home and 'h-card' in real_home, 'Site IndieWeb markup missing')
+            require('h-entry' in real_home and 'p-summary' in real_home and 'h-card' in real_home, 'Site IndieWeb markup missing')
             require('Local design prototype' not in real_home, 'Demo label leaked')
             require('unpkg.com' not in real_home and 'identity.netlify' not in real_home, 'Legacy external scripts leaked')
             feed = ET.parse(actual/'index.xml').findall('./channel/item')
