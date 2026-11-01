@@ -1,15 +1,17 @@
 ---
-title: "Fall Motorcycle trip to Florida"
+title: Fall Motorcycle trip to Florida
 date: 2026-10-25
-thumbnail: thumbnail.png
+thumbnail: media/7c696de7f371-thumbnail.png
 weight: 1
 draft: true
 fixture: true
-authors: [Design preview]
-journeys: [sample-florida-trip]
-lat: 34.20
+authors:
+- Design preview
+journeys:
+- sample-florida-trip
+lat: 34.2
 long: -90.57
-location: "Clarksdale, MS"
+location: Clarksdale, MS
 ---
 
 > **Design sample — not an actual travel account.** Dates, places, and media demonstrate the layout.

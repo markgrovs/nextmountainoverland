@@ -1,12 +1,12 @@
 ---
-title: "Mountains and deserts"
+title: Mountains and deserts
 date: 2026-09-02
 draft: true
 fixture: true
 weight: 2
-lat: 34.20
+lat: 34.2
 long: -90.57
-location: "Clarksdale, MS"
+location: Clarksdale, MS
 ---
 
 > **Design sample — an illustrative trip collection, not a real trip account.**

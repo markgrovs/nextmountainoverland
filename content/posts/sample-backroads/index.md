@@ -2,10 +2,11 @@
 date: 2026-09-04
 draft: true
 fixture: true
-journeys: [sample-backroads]
-lat: 34.20
+journeys:
+- sample-backroads
+lat: 34.2
 long: -90.57
-location: "Clarksdale, MS"
+location: Clarksdale, MS
 ---
 
 This short demonstration entry makes the sample Journey browsable. It does not describe an actual day of travel.

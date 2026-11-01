@@ -1,16 +1,18 @@
 ---
-title: "Choosing a route"
+title: Choosing a route
 date: 2026-10-30
 draft: true
 fixture: true
-authors: [Design preview]
-journeys: [sample-florida-trip]
+authors:
+- Design preview
+journeys:
+- sample-florida-trip
 toc: true
-thumbnail: thumbnail.png
+thumbnail: media/444cd28f225f-thumbnail.png
 summary: A sample practical note for the design review.
-lat: 34.20
+lat: 34.2
 long: -90.57
-location: "Clarksdale, MS"
+location: Clarksdale, MS
 ---
 
 > **Design sample, not travel advice or an actual experience.**

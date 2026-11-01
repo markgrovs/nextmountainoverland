@@ -1,16 +1,18 @@
 ---
-title: "Finding a place to stay"
+title: Finding a place to stay
 date: 2026-10-29
 draft: true
 fixture: true
-authors: [Design preview]
-journeys: [sample-florida-trip]
+authors:
+- Design preview
+journeys:
+- sample-florida-trip
 toc: true
-thumbnail: thumbnail.png
+thumbnail: media/15a718aade9c-thumbnail.png
 summary: A sample practical note for the design review.
-lat: 34.20
+lat: 34.2
 long: -90.57
-location: "Clarksdale, MS"
+location: Clarksdale, MS
 ---
 
 > **Design sample, not travel advice or an actual experience.**

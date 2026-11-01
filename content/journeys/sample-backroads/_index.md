@@ -1,12 +1,12 @@
 ---
-title: "Backroads and small towns"
+title: Backroads and small towns
 date: 2026-09-04
 draft: true
 fixture: true
 weight: 4
-lat: 34.20
+lat: 34.2
 long: -90.57
-location: "Clarksdale, MS"
+location: Clarksdale, MS
 ---
 
 > **Design sample — an illustrative trip collection, not a real trip account.**

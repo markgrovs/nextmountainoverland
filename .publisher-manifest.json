@@ -1,3 +1,30 @@
 {
-  "paths": []
+  "paths": [
+    "content/cairns/sample-overnight-notes/index.md",
+    "content/cairns/sample-overnight-notes/media/15a718aade9c-thumbnail.png",
+    "content/cairns/sample-packing-review/index.md",
+    "content/cairns/sample-packing-review/media/007eeaca3829-thumbnail.png",
+    "content/cairns/sample-route-notes/index.md",
+    "content/cairns/sample-route-notes/media/444cd28f225f-thumbnail.png",
+    "content/home/index.md",
+    "content/home/media/4234c8eab299-motorcycle.png",
+    "content/home/media/a4539e287e8c-cafe.png",
+    "content/journeys/sample-backroads/_index.md",
+    "content/journeys/sample-florida-trip/_index.md",
+    "content/journeys/sample-florida-trip/media/7c696de7f371-thumbnail.png",
+    "content/journeys/sample-mountains/_index.md",
+    "content/journeys/sample-parks/_index.md",
+    "content/posts/sample-backroads/index.md",
+    "content/posts/sample-daily-note/index.md",
+    "content/posts/sample-long-story/index.md",
+    "content/posts/sample-mountains/index.md",
+    "content/posts/sample-parks/index.md",
+    "content/posts/sample-photo-note/index.md",
+    "content/posts/sample-photo-note/media/32357271ca0a-sample.jpg",
+    "content/posts/sample-video-note/index.md",
+    "content/posts/sample-video-note/media/81c909a13245-sample-loop.mp4",
+    "content/posts/sample-video-note/media/bdb1dce9b8d2-poster.jpg",
+    "content/posts/test-post-memphis/index.md",
+    "content/sample-about.md"
+  ]
 }

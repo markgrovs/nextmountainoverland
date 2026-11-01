@@ -2,12 +2,14 @@
 date: 2026-10-31
 draft: true
 fixture: true
-authors: [Design preview]
-journeys: [sample-florida-trip]
+authors:
+- Design preview
+journeys:
+- sample-florida-trip
 summary: A short text-only daily update, grouped with its trip.
-lat: 34.20
+lat: 34.2
 long: -90.57
-location: "Clarksdale, MS"
+location: Clarksdale, MS
 ---
 
 > **Design sample — not an actual travel account.** Dates, places, and media demonstrate the layout.
