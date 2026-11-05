@@ -1,413 +1,63 @@
-# Content Creation Workflow
+# Writing and publishing
 
-## Writing from the Road
+Author in the synced Obsidian vault. Content flows **Obsidian → sync service → publisher → GitHub → Netlify**. This repository is the delivery destination, not the vault.
 
-### Mobile-First Approach
+## Where to write
 
-Since you'll be traveling, here's a workflow that works from anywhere:
+| Vault source | Purpose | Generated site file |
+| --- | --- | --- |
+| `posts/<id>/` | Daily notes, stories, photo/video notes | `content/posts/<id>/index.md` |
+| `cairns/<id>/` | Practical guides and lessons | `content/cairns/<id>/index.md` |
+| `journeys/<id>/` | Trip introduction | `content/journeys/<id>/_index.md` |
+| `home/index.md` | Homepage welcome and photos | `content/home/index.md` |
+| `pages/<name>.md` | Standalone page | `content/<name>.md` |
 
-#### Option 1: Direct GitHub Editing (Simplest)
+For posts, Cairns, and Journeys, Folder Notes are supported: `<id>/<id>.md` is valid. Hugo’s `index.md` (or `_index.md` for Journeys) takes precedence if present; otherwise the publisher selects the folder-named note or a sole Markdown file. Flat `<id>.md` notes also work. IDs start with a lowercase letter or digit and contain only lowercase letters, digits, hyphens, and underscores. Titles can use normal capitalization and spaces.
 
-1. Go to your GitHub repository on mobile
-2. Navigate to `content/posts/`
-3. Click "Add file" → "Create new file"
-4. Name it: `2025-10-04-post-title.md`
-5. Write your post in markdown
-6. Commit directly to main
-7. Netlify auto-deploys in ~2 minutes
+Do not create `pages/about.md` without first transitioning the repository-maintained `content/about/_index.md`; both would target `/about/`.
 
-**Pros:** Works anywhere with internet, no apps needed
-**Cons:** Limited editing features, need internet
-
-#### Option 2: Text Editor + Git (Recommended)
-
-**Apps you'll need:**
-- **iA Writer** or **1Writer** (iOS) - Markdown editors with folder sync
-- **Working Copy** (iOS) - Git client for iOS
-
-**Workflow:**
-1. Write post in iA Writer (syncs to iCloud)
-2. Open Working Copy
-3. Pull latest changes
-4. Copy post from iCloud to repo
-5. Commit and push
-6. Auto-deploys!
-
-#### Option 3: Obsidian (If you use it)
-
-1. Set up Obsidian vault in your repo's `content/` folder
-2. Write posts in Obsidian
-3. Use Obsidian Git plugin to sync
-4. Auto-deploys on push
-
-### Desktop Workflow
-
-```bash
-# Start writing
-hugo new posts/my-new-post.md
-
-# Preview locally
-hugo server -D
-
-# When ready, publish
-# (change draft: false in front matter)
-
-# Commit and push
-git add .
-git commit -m "New post: My New Post"
-git push
-
-# Automatically deploys!
-```
-
-## Post Templates
-
-### Travel Log Template
-
-Save this for quick travel posts:
-
-```markdown
----
-title: "Day in [Location]"
-date: 2025-10-04
-draft: false
-tags: ["travel-log", "location-name"]
-categories: ["Travel"]
-description: "Quick summary of the day"
-cover:
-    image: "/images/2025-10-04-cover.jpg"
-    alt: "Description"
----
-
-Quick intro about where we are and what we're doing...
-
-<!--more-->
-
-## Morning
-
-What happened in the morning...
-
-## Afternoon
-
-Afternoon adventures...
-
-## Evening
-
-Evening reflections...
-
-## Photos
-
-{{</* gallery images="/images/photo1.jpg,/images/photo2.jpg,/images/photo3.jpg" */>}}
-
-## Location
-
-- **Where:** Exact location
-- **Campsite:** Name/coordinates
-- **Weather:** Conditions
-- **Mileage:** Miles driven today
-```
-
-### 2027 Prep Template
-
-For motorcycle preparation posts:
-
-```markdown
----
-title: "2027 Prep: [Topic]"
-date: 2025-10-04
-draft: false
-tags: ["2027-prep", "motorcycles", "specific-topic"]
-categories: ["Pan Am Prep"]
-description: "Progress update on [topic]"
----
-
-What we're working on this week for the 2027 Pan American journey...
-
-<!--more-->
-
-## Current Status
-
-- ✅ Completed
-- 🔄 In Progress
-- ⏳ Not Started
-
-## This Week's Progress
-
-Details...
-
-## Lessons Learned
-
-What we discovered...
-
-## Next Steps
-
-What's coming next...
-```
-
-### Photo Essay Template
-
-For image-heavy posts:
-
-```markdown
----
-title: "Photos: [Location/Event]"
-date: 2025-10-04
-draft: false
-tags: ["photos", "location"]
-categories: ["Photo Essay"]
-description: "Visual journey through [location]"
-cover:
-    image: "/images/cover.jpg"
-    alt: "Description"
----
-
-Brief intro...
-
-<!--more-->
-
-{{</* gallery images="/images/1.jpg,/images/2.jpg,/images/3.jpg,/images/4.jpg,/images/5.jpg,/images/6.jpg" */>}}
-
-## Caption Section
-
-Individual photos with stories...
-
-{{</* img src="/images/special.jpg" alt="Description" caption="The story behind this photo..." */>}}
-```
-
-## Image Management
-
-### Naming Convention
-
-Use this format for easy organization:
-
-```
-YYYY-MM-DD-description.jpg
-
-Examples:
-2025-10-04-baja-sunset.jpg
-2025-10-04-nextmtn-camp.jpg
-2025-10-04-beach-view.jpg
-```
-
-### Image Optimization
-
-Before uploading, resize images:
-
-**Recommended sizes:**
-- Cover images: 1200x630px (social media optimized)
-- Gallery images: 1200px wide
-- Inline images: 800px wide
-
-**Tools:**
-- **macOS:** Preview (Tools → Adjust Size)
-- **iOS:** Shortcuts app (create resize workflow)
-- **Online:** [Squoosh.app](https://squoosh.app/)
-
-### Folder Structure
-
-```
-static/images/
-├── 2025/
-│   ├── 10/
-│   │   ├── 2025-10-04-post1-cover.jpg
-│   │   ├── 2025-10-04-post1-1.jpg
-│   │   └── 2025-10-04-post1-2.jpg
-│   └── 11/
-└── covers/
-    └── default-cover.jpg
-```
-
-## Content Calendar Ideas
-
-### Regular Features
-
-**Weekly:**
-- "Week in Review" - Summary of the week's travels
-- "Photo Friday" - Best photos from the week
-
-**Monthly:**
-- "2027 Prep Update" - Progress on motorcycle journey
-- "Lessons Learned" - What we discovered this month
-- "Gear Review" - Equipment we're using
-
-**Occasional:**
-- Route guides
-- Campsite reviews
-- Maintenance tips
-- Budget updates
-- Q&A posts
-
-## SEO Best Practices
-
-### Every Post Should Have:
-
-1. **Descriptive title** (50-60 characters)
-2. **Meta description** (150-160 characters)
-3. **Alt text** for all images
-4. **Internal links** to related posts
-5. **Tags** (3-5 relevant tags)
-6. **Category** (1 primary category)
-
-### Example Front Matter:
+## Properties
 
 ```yaml
 ---
-title: "Exploring Baja's Hidden Beaches: A Week in Paradise"
-date: 2025-10-04
-draft: false
-tags: ["baja-mexico", "beaches", "camping", "nextmtn"]
-categories: ["Travel Log"]
-description: "Discovering secluded beaches along Baja's Pacific coast in our F-550 RV. Tips for finding free camping spots and avoiding crowds."
-cover:
-    image: "/images/2025-10-04-baja-beach.jpg"
-    alt: "NextMtn RV parked on secluded Baja beach at sunset"
-    caption: "Our camp spot for the week"
+date: 2026-11-05
+draft: true
+authors: [Mark]
+location: Your location
+journeys: [fall-2026-southern-usa-shakeout-ride]
 ---
 ```
 
-## Batch Content Creation
+`title` is optional for daily notes; the date and location supply the heading. Use a title for longer stories, guides, and trip introductions. `authors` accepts a name or list, falling back to the site author. Optional coordinates use `lat` and `long`, supplied together. `mileage` and `summary` are optional.
 
-When you have good internet, batch create:
+A Journey introduction can omit `journeys`. Posts and Cairns join it through that list. Journeys sort newest date first; daily entries within a Journey read oldest first. No `weight`, `type`, or feature flag is required. `fixture: true` is only for demonstration content and should not be copied into real writing.
 
-1. **Write multiple posts** in draft mode
-2. **Upload all images** at once
-3. **Schedule publishing** by setting future dates
-4. **Queue commits** for different days
+## Photographs and video
 
-## Emergency "Quick Post" Workflow
-
-When you're short on time:
+Place delivery images beside the note, in a subfolder with a relative reference, or in the vault’s shared `attachments/` folder. Reference them explicitly:
 
 ```markdown
----
-title: "Quick Update from [Location]"
-date: 2025-10-04
-draft: false
-tags: ["quick-update"]
----
-
-Just a quick check-in from [location]!
-
-[One paragraph about what you're doing]
-
-[One photo]
-
-More details coming soon!
+![Author-written alternative text](images/photo.jpg "Optional visible caption")
 ```
 
-## Collaboration with Valarie
+Obsidian `![[photo.jpg]]` embeds are supported. The publisher copies referenced assets into a bundle’s `media/` directory and rewrites paths. A Journey or Cairn can set `thumbnail: photo.jpg`. Homepage photos use `home_photos` entries with `src`, `alt`, and optional `caption`; `home/index.md` is made headless automatically.
 
-### Shared Workflow
+Photo notes are normal Journal entries. The old PhotoSwipe gallery workflow is retired. Travelbook’s basic gallery shortcode is not a complete publisher workflow: wildcard-only references do not cause images to be copied. Use explicit image references for now.
 
-1. **Both can edit** via GitHub web interface
-2. **Use branches** for major changes
-3. **Draft folder** for works-in-progress
-4. **Review before publishing** (optional)
+Prepared local MP4s and posters can use the theme’s `ambient-video` shortcode. The publisher copies video without transcoding; the player is muted, looping, and has controls. Keep private originals outside eligible publishing paths.
 
-### Attribution
+## Preview and production
 
-Add to front matter:
+1. Finish editing and wait for the vault, including media, to sync.
+2. In `PUBLISH.md`, set `action: build-preview`.
+3. Read `last_status`, then wait for Netlify and review the [preview site](https://preview--nextmountainoverland.netlify.app/).
+4. Set `draft: false` on content ready for production; preview again.
+5. Use `action: publish-production` only when ready to promote. This syncs the vault and merges the entire preview branch into main, including site changes.
 
-```yaml
-author: "Mark"
-# or
-author: "Valarie"
-# or
-author: "Mark & Valarie"
-```
+Preview builds include drafts and future-dated content. Production excludes both. The publisher resets the action to idle and records status; a successful status confirms Git publication, not Netlify deployment.
 
-## Backup Your Content
+## Delete or replace content
 
-### Automatic (via Git)
+Delete the note in Obsidian, let the deletion sync, then build preview. The publisher removes its generated note and assets listed in `.publisher-manifest.json`. Removing an image reference also removes the unused delivery copy. Vault originals are untouched; other posts retain their own copies of shared images. Git history still contains earlier versions.
 
-- Every commit is backed up to GitHub
-- Netlify keeps deploy history
-- Clone to multiple machines
-
-### Manual
-
-Periodically export:
-
-```bash
-# Create backup
-tar -czf nextmtn-backup-$(date +%Y%m%d).tar.gz content/ static/
-
-# Or just copy content folder
-cp -r content/ ~/Backups/nextmtn-content-$(date +%Y%m%d)/
-```
-
-## Analytics & Feedback
-
-### Track What Works
-
-- Which posts get the most traffic?
-- What tags are most popular?
-- What time of day do people read?
-
-### Engage with Readers
-
-- Enable comments (Disqus, Utterances, or Giscus)
-- Respond to Instagram comments
-- Create "Reader Questions" posts
-
-## Content Ideas Generator
-
-When you're stuck for ideas:
-
-**Travel Log:**
-- Daily/weekly summaries
-- Specific locations
-- Challenges faced
-- Unexpected discoveries
-- Local culture/food
-- Wildlife encounters
-
-**2027 Prep:**
-- Motorcycle research
-- Training progress
-- Gear acquisition
-- Route planning
-- Language learning
-- Fitness preparation
-- Budget planning
-
-**Practical:**
-- RV maintenance
-- Solar power setup
-- Water management
-- Internet solutions
-- Cooking on the road
-- Laundry tips
-
-**Reflective:**
-- Why we retired early
-- Second Mountain philosophy
-- Relationship on the road
-- Fears and excitement
-- Lessons learned
-
-## Publishing Checklist
-
-Before hitting publish:
-
-- [ ] Title is descriptive and engaging
-- [ ] Description is filled out
-- [ ] Tags are relevant (3-5 tags)
-- [ ] Category is assigned
-- [ ] Cover image is set
-- [ ] All images have alt text
-- [ ] Links work
-- [ ] Spelling/grammar checked
-- [ ] `draft: false` is set
-- [ ] Preview looks good locally
-
-## Next Steps
-
-1. ✅ Choose your workflow
-2. ✅ Set up mobile apps (if using)
-3. ✅ Create your first real post
-4. 📝 Establish posting rhythm
-5. 📝 Build content backlog
-6. 📝 Engage with readers
-
-Happy writing! 🏔️✍️
+Files never recorded in the manifest are repository-maintained and need deliberate cleanup here. Do not hand-edit or reset the manifest to remove samples. Delete remaining sample notes at their vault sources. Remove stale `journeys` references too: Hugo can generate a trip page from a remaining reference even without an introduction.

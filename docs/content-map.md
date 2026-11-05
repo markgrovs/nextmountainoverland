@@ -26,24 +26,18 @@ flowchart TD
 
 A Journey is a collection, not a post type. A long story stays in the Journal; a reusable review or guide belongs in Cairns. `journeys: [trip-id]` connects either kind to a trip. Entry lists require no duplicate writing.
 
-## Draft review examples
+## Authoring and display
 
-The `sample-*` bundles are authorized design examples, labeled as samples, `draft: true`, and `fixture: true`. They contain explanatory sample text and synthetic media, not invented first-person travel accounts. Normal production builds exclude their pages and resources. Draft previews include them; RSS excludes them. They are public-safe Git content, not private drafts.
+Write in Obsidian using [the authoring workflow](../WORKFLOW.md). The publisher supports Journal, Cairn, Journey, and homepage bundles, including folder-named notes. The paths above are generated destinations; do not edit publisher-owned output directly.
 
-Run `hugo server --buildDrafts` to see the populated homepage, Journal, Journey, and Cairn views. The newest example is intentionally a short text-only daily update. Remove or replace the sample bundles when real content is ready.
+The homepage uses the `home/index.md` source for a stable welcome and up to two explicitly selected photographs. It includes the latest Journal excerpt, all Journeys in newest-date-first order, and three recent Cairns. The first Journey may have a thumbnail. On phones these sections stack. The Journal archive remains available through navigation.
 
-## Authoring boundary
+A titleless note gets a date/location heading. Named stories retain their title. Journey introductions and entries display authors, their date, and an update date when applicable. `weight` does not control Journey ordering. Introductions can appear before their first daily entry.
 
-All types are intended to be authored in Obsidian. The existing publisher mapping supports post bundles; complete routing for Cairns, Journey introductions, and homepage media/settings remains integration work. These review examples are hand-maintained fixtures outside publisher ownership, not a new daily authoring workflow. Do not use this document as evidence that new publisher routing has been implemented.
+Photographs remain in post bundles, with inline images and optional captions. A dedicated gallery grid/lightbox is not currently part of the authoring workflow. See [the publishing contract](publishing-contract.md) for media and deletion behavior.
 
-## Visual review
+## Design references
 
-The draft-only `content/home-preview/index.md` bundle supplies the demonstration welcome and two AI-generated illustrative photos. `params.home_page` selects it when draft builds include it; production falls back to the normal homepage and never emits these draft photos. This is a stable welcome, not a Journal entry.
+Original mockups are retained in `output/design-studies/`; [the redesign checklist](redesign-content-checklist.md) is a historical handoff, not current setup instructions. Runnable examples live only in the theme's opt-in `exampleSite/` and are exercised by its checks.
 
-Desktop placement: welcome and latest Journal note on the left; overlapping opening photos on the right. Below, the left column shows four Journeys (first featured with a thumbnail); the right shows three recent Cairns with optional thumbnails. The landscape footer holds navigation, following links, and appearance controls. On phones these sections stack in that order. Daily entries remain in the Journal archive and associated Journey; there is no extra homepage archive list.
-
-The preview uses two illustrative images repeatedly to demonstrate optional thumbnails. They are not photographs of the travelers or evidence of real trips. Homepage body/photo and thumbnail interfaces are ready in the theme; authoring and routing them through the publisher still needs integration. The existing video shortcode autoplays muted; the original no-autoplay preference still needs resolution separately.
-
-## Daily-note heading
-
-The daily-note, photo-note, video-note, and small trip examples intentionally omit `title`. The latest daily note displays `2026-10-31 Clarksdale, MS`, derived from `date` and `location`. All sample entry and Journey bundles supply illustrative `lat`, `long`, and `location` properties. The longer story and Cairns keep descriptive titles. The draft homepage introduction has empty location properties because it does not represent a dated stop. See the publishing contract for the complete metadata schema.
+Any remaining `sample-*` files listed in the publisher manifest must be retired in Obsidian. `fixture: true` identifies demonstrations; do not carry it into real writing. About and Welcome are preserved for author revision, while Contact and Thank-you remain functional site pages.

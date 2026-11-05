@@ -1,21 +1,20 @@
 # Quick start
 
-Install Hugo 0.166.0, then run from the repository root:
+With Hugo 0.166.0 installed:
 
 ```sh
-hugo server
+git submodule update --init --recursive
+hugo server --buildDrafts --buildFuture
 ```
 
-Open http://localhost:1313/. Stop with Ctrl+C. Use `--buildDrafts --buildFuture` to see drafts/future posts.
+Open http://localhost:1313/. Stop with Ctrl+C. Omit draft/future flags for a production-like view.
 
-To inspect the theme's labeled examples instead of authored site content:
+Write in Obsidian using [the publishing workflow](WORKFLOW.md). Do not edit generated publisher-owned files in this checkout.
+
+For theme examples isolated from site content:
 
 ```sh
-hugo server --source themes/travelbook/exampleSite --port 1314 --renderToMemory --disableFastRender
+hugo server --source themes/travelbook/exampleSite --port 1314 --renderToMemory
 ```
 
-Open http://localhost:1314/.
-
-Local Journal bundles: `hugo new content posts/my-entry/index.md`. Local Cairn bundles: `hugo new content cairns/my-guide/index.md`. New pages are drafts. The deployed publisher's folder support differs; read [the publishing contract](docs/publishing-contract.md) before changing the vault workflow.
-
-Run checks with `python3 scripts/check_travelbook.py --hugo hugo` and `node themes/travelbook/tests/appearance.cjs`. See [README.md](README.md) for configuration, publication, and rollback.
+Run `python3 scripts/check_travelbook.py --hugo hugo` before delivering changes. See [README.md](README.md) for the full verification commands and [DEPLOYMENT.md](DEPLOYMENT.md) for deployment and recovery.

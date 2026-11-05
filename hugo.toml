@@ -12,9 +12,7 @@ enableGitInfo = true
 [params]
   date_timezone = "America/Denver" # Display update timestamps in Colorado time.
   home_page = "/home" # Publisher-owned stable welcome bundle.
-  home_preview_page = "/home-preview" # Draft-only design fallback.
   author = 'Mark & Valarie'
-  description = "Mark and Valarie's journey from RV adventures to the Pan American Highway on motorcycles"
   instagram = 'https://instagram.com/nextmountainoverland'
   home_heading = "Our Travel Journals"
 
@@ -40,20 +38,3 @@ enableGitInfo = true
 [markup.goldmark.renderer]
   # Existing authored contact page contains a Netlify form in HTML.
   unsafe = true
-
-# Retain sample sources but omit their pages and bundle assets from every build.
-[[cascade]]
-  [cascade.target]
-    path = '/gallery{,/**}'
-  [cascade.build]
-    list = 'never'
-    render = 'never'
-    publishResources = false
-
-[[cascade]]
-  [cascade.target]
-    path = '/posts/2026-08-05-gallery-validation{,/**}'
-  [cascade.build]
-    list = 'never'
-    render = 'never'
-    publishResources = false

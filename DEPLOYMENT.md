@@ -1,10 +1,12 @@
 # Deployment
 
-Travelbook is the active theme. Netlify builds with Hugo 0.166.0 using the checked-in `netlify.toml`; Travelbook is pinned as a public HTTPS Git submodule. A fresh checkout must initialize submodules; Netlify must fetch them during checkout.
+Netlify builds this site with Hugo **0.166.0** and the pinned public HTTPS Travelbook submodule. A fresh checkout must initialize it:
 
-For a fresh local checkout, run `git submodule update --init --recursive`.
+```sh
+git submodule update --init --recursive
+```
 
-## Before committing
+## Check and deliver
 
 ```sh
 python3 scripts/check_travelbook.py --hugo hugo
@@ -13,27 +15,25 @@ git diff --check
 git status --short
 ```
 
-Review authored content and the final diff, then commit and push the desired branch using your normal Git workflow. The theme demo stays under `themes/travelbook/exampleSite/`; output/resources/cache/check directories are ignored. Python bytecode is also ignored. The previously deleted tracked Python cache is not restored.
+Commit and push theme changes to Travelbook first, then update the site’s submodule reference. Preserve publisher commits and unrelated working-tree edits. Push site changes to `preview` for review. Promote to `main` only when authorized.
 
-## Netlify configuration
+## Netlify contexts
 
-- Production: `hugo --gc --minify --baseURL https://nextmountainoverland.com/`.
-- Named `preview` branch context: builds drafts and future posts using the deploy URL.
-- Other branch deploys: the checked-in fallback skips builds.
-- Legacy Journal routes redirect from `/posts/` to `/dispatches/`.
-- Gallery and validation sample content stays in the repository but is excluded by Hugo build cascades.
+- `main` / production: published content, using `https://nextmountainoverland.com/`.
+- `preview`: drafts and future posts, using `$DEPLOY_PRIME_URL`.
+- Pull-request deploy previews: the same draft/future settings.
+- Other branch deployments: skipped by the fallback command.
 
-Verify production-branch and branch-deploy settings in the actual Netlify dashboard; checked-in contexts do not establish the live dashboard configuration. A successful local build or Git push is not deployment verification. This change does not alter the Workbench publisher service.
+`hugo.toml` enables Git information. Explicit `lastmod` takes precedence over the most recent Git commit date for a page. Git timestamps describe repository edits, not the first public deployment.
 
-After an intended deployment, verify the production homepage, Journal, About, Contact form, feed, post redirects, and Light/Dark preference. Do not use a live form submission or live publisher action as an automated check.
+The live dashboard controls which branch is production and which branches deploy. Checked-in contexts do not establish those dashboard settings. After a deployment, check its status and the homepage, Journal, Journeys, About, Contact markup, feed, and Light/Dark preference. Do not submit a live contact form as an automated test.
 
-## Rollback
+Keep `/posts/` redirects to `/dispatches/` and `/rss` to `/index.xml`: these preserve reader links. Raw HTML rendering remains enabled for the Netlify contact form. Preview and Git history are not private storage.
 
-PaperMod remains available as the original submodule. Previous templates, styles, archetypes, and compatible configuration are in `legacy/papermod/`.
+## Publisher boundary
 
-```sh
-git submodule update --init --recursive
-hugo server --config legacy/papermod/hugo.toml
-```
+The service is maintained in [publisher-daemon](https://github.com/markgrovs/publisher-daemon), with the Next Mountain entrypoint and adapter. Editing this site does not redeploy that service. The publisher’s manifest is an ownership record, not a cache; preserve it and deployed state during recovery.
 
-For an intentional rollback, restore the legacy configuration with its explicit layout/asset/archetype paths. Review `/dispatches/` compatibility and Netlify redirects at that time. Do not reset older repository content over newer authored material. Publisher code, ownership state, and social-delivery state are separate from theme rollback.
+## Recovery
+
+Use Git history to identify and revert the site or theme change that caused a regression. Restore a known theme commit independently of authored content. Do not reset an old snapshot over newer published notes or publisher state. The retired PaperMod implementation is available in history, not maintained as a second installation.

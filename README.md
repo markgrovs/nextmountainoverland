@@ -1,68 +1,48 @@
 # Next Mountain Overland
 
-Mark and Valarie's travel journal, built with Hugo and the local Travelbook theme.
+Mark and Valarie’s travel journal, built with Hugo and the Travelbook theme.
 
-## Local development
+## Develop locally
 
-Requires Hugo 0.166.0 (the Netlify pin), Python 3 for checks, and Node.js for appearance tests. After cloning, initialize the pinned themes with `git submodule update --init --recursive`.
-
-```sh
-hugo server
-```
-
-Open http://localhost:1313/. Add `--buildDrafts --buildFuture` for a preview. Draft source remains in Git and may be exposed by preview builds; keep private originals outside eligible publishing paths.
-
-The self-contained theme is in `themes/travelbook/`. Its labeled demo is outside normal content:
+Use Hugo **0.166.0**, matching `netlify.toml`. Initialize the theme after cloning:
 
 ```sh
-hugo server --source themes/travelbook/exampleSite --renderToMemory --disableFastRender
+git submodule update --init --recursive
+hugo server --buildDrafts --buildFuture
 ```
 
-Demo fixtures and the retained legacy validation samples are excluded from the active site's production and preview output.
+Open http://localhost:1313/. Omit the two build flags to view production-eligible content. Drafts are public on the preview site and remain in Git history.
 
-## Content
-
-- `content/posts/<stable-name>/index.md`: Journal entries at `/dispatches/<stable-name>/`. Text, photographs, long stories, and video context share one template.
-- `content/cairns/<stable-name>/index.md`: Practical guides.
-- `journeys: [trip-id]`: Groups Journal entries and Cairns. Optional introduction at `content/journeys/<trip-id>/_index.md`.
-- `content/about/_index.md`: Existing supplied About page.
-
-The Obsidian → Workbench publisher → GitHub → Netlify workflow remains in place. The daemon currently publishes posts bundles, draft Markdown, and flat pages; Cairn/journey/media integration still requires separate publisher work. See [the publishing contract](docs/publishing-contract.md).
-
-For local bundle authoring:
+Travelbook is the only theme, pinned at `themes/travelbook/`. Its opt-in demo is isolated from this site:
 
 ```sh
-hugo new content posts/my-entry/index.md
-hugo new content cairns/my-guide/index.md
+hugo server --source themes/travelbook/exampleSite --port 1314 --renderToMemory
 ```
 
-New content starts as `draft: true`. Journal title is optional; location, mileage, journeys, summary, and IndieWeb relationship fields are optional. [The theme guide](themes/travelbook/README.md) documents authoring and media syntax.
+## Write and publish
 
-## Verification
+Write in Obsidian. The separate [publisher-daemon](https://github.com/markgrovs/publisher-daemon) delivers generated content to this repository; Netlify builds it. Do not edit publisher-owned files here: the next publication replaces them.
+
+- [Authoring and publishing workflow](WORKFLOW.md)
+- [Content map](docs/content-map.md)
+- [Publishing contract and ownership](docs/publishing-contract.md)
+- [Deployment and recovery](DEPLOYMENT.md)
+- [Theme authoring reference](themes/travelbook/README.md)
+
+The site keeps a few repository-maintained pages: About, Welcome, Contact, and Thank-you. About and Welcome are retained for an author review. Published post routes remain `/dispatches/<stable-id>/`; redirects preserve older `/posts/` links.
+
+## Verify changes
 
 ```sh
 python3 scripts/check_travelbook.py --hugo hugo
 node themes/travelbook/tests/appearance.cjs
-hugo --gc --minify
+git diff --check
 ```
 
-Checks cover the real site, the theme demo, standalone installation, rendered links, feeds, sample exclusion, draft asset exclusion, media failures, and IndieWeb fields. Generated output and test artifacts are ignored by Git.
+Python 3.11+ is required for the site checks. Node.js is used for the appearance behavior check. Checks build production and preview in temporary directories, exercise the theme’s isolated fixtures, and verify links, feeds, metadata, media handling, and draft exclusion. They do not submit forms or publish content.
 
-## Publishing and rollback
+Commit and push theme changes in the theme repository first, then record its new commit here. Site changes go to `preview` for review. A Git push does not confirm a successful Netlify deployment.
 
-`netlify.toml` pins Hugo 0.166.0. Journal redirects preserve existing `/posts/` links. Production RSS includes published Journal and Cairns entries; structural pages and fixtures are excluded. The contact form remains a Netlify form.
+Historical design references remain under `output/design-studies/` and in the labeled redesign checklist. The retired PaperMod implementation and samples are recoverable from Git history.
 
-Travelbook is a Git submodule from [markgrovs/travelbook](https://github.com/markgrovs/travelbook). This site pins its theme commit; commit the updated submodule pointer whenever upgrading the theme. The PaperMod submodule remains at `themes/PaperMod/`; previous configuration, layouts, styles, and archetypes are retained under `legacy/papermod/` for rollback. Preview it with:
-
-```sh
-git submodule update --init --recursive
-hugo server --config legacy/papermod/hugo.toml
-```
-
-See [deployment instructions](DEPLOYMENT.md). Committing or pushing this branch does not itself verify a Netlify deployment.
-
-## IndieWeb
-
-Travelbook emits microformats for entries, feeds, authors, publication/update dates, content, location, categories, and canonical URLs. It supports supplied reply/like/repost/syndication fields, `rel="me"` profile links, and optional endpoint discovery. No Webmention, IndieAuth, Micropub, or social delivery service is enabled automatically. [Configuration and supported fields](themes/travelbook/README.md#indieweb).
-
-Content © Mark & Valarie. All rights reserved. The Travelbook theme is MIT licensed.
+Content © Mark & Valarie. All rights reserved. Travelbook is MIT licensed.

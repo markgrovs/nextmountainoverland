@@ -1,4 +1,6 @@
-# Redesign handoff and content checklist
+# Historical redesign handoff and content checklist
+
+> Historical reference retained with the design mockups. This captures an earlier handoff; sample inventory, four-Journey limits, weight ordering, and publisher limitations below are superseded. Use [WORKFLOW.md](../WORKFLOW.md), [the content map](content-map.md), and [the publishing contract](publishing-contract.md) for current behavior.
 
 Reviewed 2026-11-05 against site preview `eb5e41f` and Travelbook `e6fb17e`.
 

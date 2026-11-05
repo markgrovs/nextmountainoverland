@@ -1,70 +1,72 @@
 # Publishing contract
 
-## Current workflow
+## Ownership and workflow
 
-Preserve Obsidian → Workbench publisher → GitHub → Netlify. Authors own vault text and originals; the publisher owns generated paths in `.publisher-manifest.json`; maintainers own theme/configuration. Private originals must stay outside eligible publishing paths. Drafts are exposed in preview and Git history.
+Preserve **Obsidian → sync service → publisher → GitHub → Netlify**. Authors own vault text and originals; the publisher owns the generated files in `.publisher-manifest.json`; maintainers own theme and configuration. Private originals stay outside eligible publishing paths. Drafts are public in preview and remain in Git history.
 
-Current mappings: `posts/<bundle>/` → `content/posts/<bundle>/index.md`; `drafts/*.md` → `content/drafts/*.md`; `pages/*.md` → `content/*.md`. Only posts currently receive bundle processing. Current image processing and Markdown relocation have limitations; proposed media support is not implemented in the daemon.
+The current Next Mountain adapter lives in the separate [publisher-daemon repository](https://github.com/markgrovs/publisher-daemon), under `publisher/nextmountain.py`, with `scripts/nextmountain_entrypoint.py`. The mappings below were checked against that source and the site's generated manifest; this document does not certify the deployed service revision.
 
-## Local prototype
+| Vault source | Site destination |
+| --- | --- |
+| `posts/<id>/` or `posts/<id>.md` | `content/posts/<id>/index.md` |
+| `cairns/<id>/` or `cairns/<id>.md` | `content/cairns/<id>/index.md` |
+| `journeys/<id>/` or `journeys/<id>.md` | `content/journeys/<id>/_index.md` |
+| `home/index.md` | `content/home/index.md` (headless) |
+| `pages/*.md` | `content/*.md` |
+| `drafts/*.md` | `content/drafts/*.md` (legacy flat mapping) |
 
-See [theme demo instructions](../themes/travelbook/exampleSite/README.md). `themes/travelbook/exampleSite/hugo.toml` selects travelbook and isolated fixture content, layouts, assets, data, and static paths. The example site is opt-in locally; Travelbook is now the active production theme configuration, authorized by the user on 2026-09-30. Authored content remains independent. Do not merge prototype configuration into production or mount fixtures in a deployment.
+For post, Cairn, and Journey bundles, selection order is the Hugo index filename, a folder-named Markdown note, then a sole Markdown file. IDs match `[a-z0-9][a-z0-9_-]*`. The title is independent of the ID. The current adapter parses YAML lists and nested settings, handles referenced local media, and validates coordinates and paths. Flat pages/drafts receive validation and text copying, not bundle media processing.
 
-Journal routes use `/dispatches/:contentbasename/`, preserving bundle identity across title changes. Journeys read oldest first. Root RSS selects Journal and Cairns only and excludes drafts and fixture-marked entries.
+The publisher stages and validates its output before applying changes. On a successful sync, files previously recorded in the manifest but absent from the new output are removed. Unmanaged files remain untouched. Do not edit or reset the manifest to retire samples: delete notes at their vault sources. Removing generated files alone allows the next publication to restore them. Git history retains previous versions.
 
-Preferred authoring syntax:
+`build-preview` mirrors eligible content, including drafts, to preview. `publish-production` syncs preview and merges it into main, including site changes. Hugo controls draft/future visibility. Publisher success confirms a Git update; check Netlify separately. No live publication or form submission is a test. Service deployment and social delivery require separate authorization.
+
+## Theme and routes
+
+Travelbook is the active theme, authorized on 2026-09-30, and the only maintained theme submodule. Commit and push theme changes in its repository before recording the new commit here. Initialize submodules after cloning. Preserve unrelated working-tree changes.
+
+The isolated theme demo is opt-in under `themes/travelbook/exampleSite/`. Never mount fixtures into the live site's content. Old PaperMod templates, gallery samples, location banner, and hero assets have been retired; Git history provides recovery. Historical design references are retained, not operational instructions.
+
+Journal entries use `/dispatches/:contentbasename/`, preserving identity across title changes. Keep the `/posts/` redirects for existing links. Journeys list newest authored date first regardless of weight, including introductions without linked entries. Daily Journal entries within each Journey read oldest first. The homepage shows all Journeys and up to three recent Cairns. RSS includes published Journal and Cairn entries and excludes drafts and fixture-marked content.
+
+The homepage welcome comes from `params.home_page = "/home"`. Its body and `home_photos` provide the opening; `params.home_heading` provides the heading. The theme supports up to two welcome photographs with `src`, author-written `alt`, and optional `caption`. No demonstration fallback is configured. Journey/Cairn thumbnails are optional page resources. Empty content sections are omitted.
+
+## Media
+
+Preferred syntax:
 
 ```markdown
 ![Author-written alternative text](images/photo.jpg "Optional visible caption")
 ```
 
-The render hook accepts current local page resources or proposed media-index entries. It emits dimensions and responsive selections without recompression and fails the build on missing images. Synthetic responsive JPEG fixtures and a PNG diagram demonstrate the proposed interface. Publisher generation, orientation correction, metadata stripping, source validation, and download ownership remain Phase B work.
+Obsidian image embeds are also supported. The publisher resolves explicitly referenced local assets beside the note or in vault `attachments/`, generates delivery files in `media/`, and rewrites references. JPEG, PNG, and WebP images are orientation-corrected, resized as needed, and re-encoded without original metadata. Downloads and prepared MP4 files are copied; video is not transcoded. Only referenced eligible files are published.
 
-## Field Notebook theme interface
+The theme renders local images with dimensions, alt text, and optional captions, without recompressing them. Its optional media-index interface supports supplied responsive variants; the adapter does not generate those variants. Missing required images fail the build. The basic gallery shortcode does not provide a complete wildcard-based publishing workflow or the retired PhotoSwipe grid/lightbox. Photo notes remain Journal entries.
 
-The 2026-10-30 design revision presents a stable welcome and a compact latest-entry excerpt, with visible header navigation. All Journeys (newest authored date first, independent of weight) and three recent Cairns are derived from content. Journal archive access stays in the header/footer rather than an additional homepage list. Empty sections are omitted. Entry pages and RSS retain full content. Optional `location` (falling back to `place`) and `mileage` supplement the date.
+The `ambient-video` shortcode uses muted, looping, inline video with a poster, native controls, and a direct file link. An enhancement supplies pause/play and reduced-motion handling. Explicitly approve delivery clips; do not store master videos in Git.
 
-Warm paper, navy serif typography, rust accents, and optional overlapping photographs implement the Field Notebook direction. The opening works without images. `params.home_heading` controls its heading; `params.home_photos` accepts up to two approved delivery assets with source, author-written alt text, and optional caption. `params.home_page` optionally selects a homepage bundle whose body and `home_photos` supply the welcome. Bundle photos are resolved before global assets. The configured `/home-preview` bundle is draft-only, labeled as a demonstration, and supplies AI-generated illustrative photos only in draft builds. Production falls back to the ordinary homepage. Journey and Cairn bundles may provide a `thumbnail` resource; images are decorative alongside descriptive links. A native SVG landscape footer completes the composition. Publisher support for authoring these settings/assets from Obsidian is still separate integration work.
-
-Reader-controlled Light/Dark buttons follow the device preference initially and remember an explicit choice. Without JavaScript, device appearance and core navigation/reading continue to work.
-
-`themes/travelbook/` is the pinned submodule from https://github.com/markgrovs/travelbook. Theme changes are committed and pushed in that repository first, then its updated commit is recorded in this site. See its README and `exampleSite/minimal.hugo.toml` for installation and explicit site settings.
-
-The `ambient-video` shortcode renders explicitly delivered local MP4s as muted, looping, inline video, with a poster, native controls, and direct file link. A small local script adds a pause/play button and reduced-motion handling. This changes the theme's rendering interface only; it does not implement daemon video processing or authorize storing master video files in Git. The checked-in clip is synthetic test media.
-
-Run `python3 scripts/check_travelbook.py --hugo hugo`. Check artifacts and preview output stay in Git-ignored directories under `themes/travelbook/exampleSite/`.
-
-## IndieWeb interface
-
-The theme renders h-entry/h-feed, author h-card, canonical entry URL/identity, publication and update dates, content, and supplied summary/location/categories. Optional `syndication`, `in_reply_to`, `like_of`, and `repost_of` fields are rendered as their corresponding microformat properties. See the theme README for configuration.
-
-Only configured IndieAuth, Webmention, and Micropub endpoint URLs are advertised. No service backend, external delivery, or social verification is created by theme markup. The publisher's scalar parser remains unchanged, so complete frontmatter/list handling in vault publication is still a Phase B task.
-
-## Approval and recovery
-
-Phase B requires sanitized deployed service definitions, deployed revision identity, and Netlify branch/deploy settings. Theme activation was separately authorized on 2026-09-30. Publisher integration and POSSE still require separate authorization. No live publication is a test.
-
-The gallery section and gallery-validation post are excluded from active production and preview builds through Hugo cascades; their source files remain intact. Legacy templates/styles/configuration/archetypes are retained in legacy/papermod/. The prior theme configuration is recorded in legacy/papermod/hugo.toml; record compatible publisher manifest/state before any later publisher integration. Restore theme configuration independently from authored content. Keep POSSE off independently and preserve delivery receipts.
-
-## Journal location metadata
-
-Use these YAML properties for Journal entries and Cairns; Journey introductions can carry the same location context. Coordinates and labels are supplied by the authoring workflow. The theme performs no geocoding or device capture.
+## Metadata
 
 ```yaml
 ---
-date: 2026-10-31
-lat: 34.20
-long: -90.57
-location: "Clarksdale, MS"
-journeys: [fall-motorcycle-trip-florida]
+date: 2026-11-05
 draft: true
+authors: [Mark]
+location: Your location
+journeys: [your-trip-id]
 ---
 ```
 
-Coordinates in this example and the design fixtures are approximate illustrative values, not captured travel positions. `lat` and `long` are decimal degrees, with negative longitude west of Greenwich. Latitude must be within -90..90 and longitude within -180..180. Supply both together; zero is valid. Empty properties are accepted while composing a draft. Existing content without coordinates remains compatible. `location` is the supplied display label; the theme does not infer it from coordinates. Legacy `place` remains a fallback.
+Omit `title` for daily notes: the heading becomes the ISO date plus location, falling back to the date alone. Supplied titles win. `location` falls back to legacy `place`; no geocoding or device capture is performed. Optional `lat` and `long` are decimal degrees, supplied together and in range. Empty coordinates are accepted. Optional `mileage` supplements the location.
 
-Omit `title` for daily notes: the heading becomes `YYYY-MM-DD location`, consistently on the entry, Journal/Journey lists, browser title, and RSS. With no place label, the fallback is the ISO date. A deliberately supplied title still wins for longer narratives and Cairns, whose date/location metadata remains visible. Stable filenames continue to determine URLs. Entry summaries use an ISO date followed by the location. Full Journal, Cairn, and Journey pages share a header with a byline and readable calendar date below the title, a quieter update date, and optional location/map/mileage details above a thin divider. Coordinates power a normal OpenStreetMap link and h-geo markup, without embedding a live map or making a lookup request.
+`journeys` is a list of stable trip identifiers used by Journal and Cairn entries. The introduction itself need not reference its own Journey. Remaining references can generate a Journey term after its introduction is deleted.
 
-`journeys` is a list of stable Journey identifiers; Journal entries and Cairns can belong to the same trip. Lists are generated automatically. The local archetypes provide the properties but do not install an Obsidian template. Capture tools and publisher integration remain separate work; this change defines the data contract expected by the site.
+Journal, Cairn, and Journey headers share a byline and readable calendar date under the title, a quieter update date, and optional location/map/mileage details. `authors` falls back to the site author. Explicit `lastmod` takes priority over the last Git change; dates use the configured timezone. Git timestamps describe repository revisions, not the first public deployment. Light/Dark controls follow the device initially and remember a reader's selection.
 
-Journey introductions appear in both Journey lists even without linked entries. Their pages display authors (falling back to the site author), date, and an updated date when later than the authored date. Explicit `lastmod` takes priority over the last Git commit date; builds enable Git information. Git dates describe repository revisions, not the first public deployment. Daily entries within each Journey remain oldest first.
+The theme emits IndieWeb microformats and configured endpoint discovery. It does not supply Webmention, IndieAuth, Micropub, or syndication services. Never infer social publication from metadata alone.
+
+## Verification and recovery
+
+Run `python3 scripts/check_travelbook.py --hugo hugo` with Hugo 0.166.0, matching `netlify.toml`. The check builds both the theme fixtures and the actual site into temporary ignored directories. Run `node themes/travelbook/tests/appearance.cjs` for preference behavior. See [deployment instructions](../DEPLOYMENT.md) for branch contexts and recovery.
+
+Recover theme/configuration independently from authored content and publisher state. Do not replace current content or ownership records with an old repository snapshot. Preserve delivery receipts and keep social delivery off unless separately authorized.
