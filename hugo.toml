@@ -4,6 +4,10 @@ timeZone = 'America/Denver'
 title = 'Next Mountain Overland'
 theme = 'travelbook'
 enableEmoji = true
+enableGitInfo = true
+
+[frontmatter]
+  lastmod = ["lastmod", ":git", "date", "publishDate"]
 
 [params]
   date_timezone = "America/Denver" # Display update timestamps in Colorado time.
