@@ -15,6 +15,7 @@ enableGitInfo = true
   author = 'Mark & Valarie'
   instagram = 'https://instagram.com/nextmountainoverland'
   home_heading = "Our Travel Journals"
+  rss_footer = "Thanks for reading and helping keep RSS alive. — Mark & Valarie"
 
 [pagination]
   pagerSize = 10

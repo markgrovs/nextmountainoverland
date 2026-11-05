@@ -61,3 +61,9 @@ Preview builds include drafts and future-dated content. Production excludes both
 Delete the note in Obsidian, let the deletion sync, then build preview. The publisher removes its generated note and assets listed in `.publisher-manifest.json`. Removing an image reference also removes the unused delivery copy. Vault originals are untouched; other posts retain their own copies of shared images. Git history still contains earlier versions.
 
 Files never recorded in the manifest are repository-maintained and need deliberate cleanup here. Do not hand-edit or reset the manifest to remove samples. Delete remaining sample notes at their vault sources. Remove stale `journeys` references too: Hugo can generate a trip page from a remaining reference even without an introduction.
+
+## Follow page and RSS
+
+Create `pages/follow.md` in Obsidian with `title: Follow via RSS` and your preferred draft status. The publisher delivers it as `content/follow.md` at `/follow/`. The site footer and RSS entry footers link to it automatically once the page is included in a build. Use `https://nextmountainoverland.com/index.xml` as the subscription address; `/rss` redirects there.
+
+The main feed contains full published Journal and Cairn posts with images and a thank-you footer. It excludes Journey introductions, standalone pages, drafts, future publications, and design fixtures. You can describe that scope in your Follow page. The page body remains yours to write in Obsidian.
