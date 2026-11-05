@@ -4,9 +4,9 @@ draft: true
 fixture: true
 headless: true
 home_photos:
-- src: media/6a97de47b642-Mark_Val.png
+- src: media/fecf78750ce7-Mark_Val-blog.jpeg
   alt: A photo of Mark and Valarie
-- src: media/ba0a078be13a-motorcycles.jpg
+- src: media/c452d6ca8dee-motorcycles-blog.jpeg
   alt: Two Honda CRF300L Rallys near Medicine Park, OK
 lat: null
 long: null
