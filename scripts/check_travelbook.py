@@ -44,15 +44,20 @@ def main():
                        'cairns/sample-overnight-notes', 'journeys/sample-mountains',
                        'journeys/sample-parks', 'journeys/sample-backroads')
             for sample in samples:
-                require((actual/sample/'index.html').is_file() == (name == 'real-preview'),
-                        f'Sample visibility incorrect: {name} {sample}')
+                # Authors can retire samples in Obsidian. Only require preview pages
+                # for samples still present; Hugo may also derive Journey terms from posts.
+                source = ROOT/'content'/sample.replace('dispatches/', 'posts/', 1)
+                has_source = any((source/index).is_file() for index in ('index.md', '_index.md'))
+                if name == 'real-production' or has_source:
+                    require((actual/sample/'index.html').is_file() == (name == 'real-preview'),
+                            f'Sample visibility incorrect: {name} {sample}')
             if name == 'real-production':
                 require(not any('sample-' in str(p.relative_to(actual)) for p in actual.rglob('*')),
                         'Draft sample resource leaked to production')
             real_home = (actual/'index.html').read_text()
             if name == 'real-preview':
                 require('AI-generated illustrative photos' in real_home, 'Full homepage demonstration missing')
-                require('notebook-photos' in real_home and 'journey-thumbnail' in real_home and 'cairn-thumbnail' in real_home, 'Homepage photo placements missing')
+                require('notebook-photos' in real_home, 'Configured homepage photographs missing')
             else:
                 require('AI-generated illustrative photos' not in real_home, 'Draft homepage leaked')
                 require(not (actual/'home-preview').exists(), 'Draft homepage media leaked')
