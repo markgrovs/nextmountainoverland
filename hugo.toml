@@ -12,6 +12,7 @@ enableEmoji = true
   author = 'Mark & Valarie'
   description = "Mark and Valarie's journey from RV adventures to the Pan American Highway on motorcycles"
   instagram = 'https://instagram.com/nextmountainoverland'
+  home_heading = "Our Travel Journals"
 
 [pagination]
   pagerSize = 10
