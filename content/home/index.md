@@ -4,10 +4,10 @@ draft: true
 fixture: true
 headless: true
 home_photos:
-- src: media/a4539e287e8c-cafe.png
-  alt: AI-generated illustration of a roadside cafe in autumn
-- src: media/4234c8eab299-motorcycle.png
-  alt: AI-generated illustration of a motorcycle at an autumn overlook
+- src: media/6a97de47b642-Mark_Val.png
+  alt: A photo of Mark and Valarie
+- src: media/ba0a078be13a-motorcycles.jpg
+  alt: Two Honda CRF300L Rallys near Medicine Park, OK
 lat: null
 long: null
 location: ''
