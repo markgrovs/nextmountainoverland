@@ -1,6 +1,5 @@
 ---
-date:
-  '{ date:YYYY-MM-DD }': null
+date: 2026-10-18
 draft: true
 lat: null
 long: null
