@@ -4,7 +4,8 @@ draft: true
 lat: null
 long: null
 location: ''
-journeys: []
+journeys:
+- fall-2026-southern-usa-shakeout-ride
 title: Fall 2026 Southern USA Shakeout Ride
 weight: 10
 thumbnail: media/846ea9021314-fall-southern-usa-route-blog.webp
