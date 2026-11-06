@@ -1,6 +1,6 @@
 ---
 date: 2026-10-18
-draft: true
+draft: false
 lat: null
 long: null
 location: ''
