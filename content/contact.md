@@ -1,9 +1,6 @@
 ---
 title: "Contact Us"
 draft: false
-hideAuthor: true
-ShowReadingTime: false
-ShowWordCount: false
 ---
 
 <p>Have a question, suggestion, or just want to say hello? Use the form below!</p>

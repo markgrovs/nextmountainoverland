@@ -1,118 +1,42 @@
 baseURL = 'https://nextmountainoverland.com/'
-languageCode = 'en-us'
+locale = 'en-us'
+timeZone = 'America/Denver'
 title = 'Next Mountain Overland'
-theme = 'PaperMod'
-
-# Enable emoji support
+theme = 'travelbook'
 enableEmoji = true
+enableGitInfo = true
 
-# Enable RSS
-[outputs]
-  home = ["HTML", "RSS", "JSON"]
+[frontmatter]
+  lastmod = ["lastmod", ":git", "date", "publishDate"]
 
-# Pagination
-paginate = 10
-
-# PaperMod specific settings
 [params]
-  description = "Mark and Valarie's journey from RV adventures to the Pan American Highway on motorcycles"
-  author = "Mark & Valarie"
-  
-  # Show reading time and word count
-  ShowReadingTime = true
-  ShowWordCount = true
-  ShowShareButtons = false
-  ShowPostNavLinks = true
-  ShowBreadCrumbs = false
-  ShowCodeCopyButtons = true
-  ShowRssButtonInSectionTermList = true
-  
-  # Date format
-  DateFormat = "January 2, 2006"
-  
-  # Enable search
-  ShowSearchPage = true
-  
-  # Images
-  images = ["/images/nextmtn-social.jpg"]
-  
-  # Home page settings
-  [params.homeInfoParams]
-    Title = "Next Mountain Overland"
-    Content = """
-Welcome to our journey! We're Mark and Valarie, early retirees exploring North America in our F-550 RV (NextMtn) 
-while preparing for our 2027 adventure: riding motorcycles from Colorado to Argentina on the Pan American Highway.
+  date_timezone = "America/Denver" # Display update timestamps in Colorado time.
+  home_page = "/home" # Publisher-owned stable welcome bundle.
+  author = 'Mark & Valarie'
+  instagram = 'https://instagram.com/nextmountainoverland'
+  home_heading = "Our Travel Journals"
+  rss_footer = "Thanks for reading and helping keep RSS alive. — Mark & Valarie"
+  productionBaseURL = 'https://nextmountainoverland.com'
 
-Follow along as we document our travels, preparations, and the lessons we learn along the way.
-"""
+[pagination]
+  pagerSize = 10
 
-  # Social links
-  [[params.socialIcons]]
-    name = "instagram"
-    url = "https://instagram.com/nextmountainoverland"
-  
-  [[params.socialIcons]]
-    name = "rss"
-    url = "/index.xml"
-
-# Menu configuration
-[menu]
-  [[menu.main]]
-    identifier = "posts"
-    name = "Posts"
-    url = "/posts/"
-    weight = 10
-
-  [[menu.main]]
-    identifier = "gallery"
-    name = "Gallery"
-    url = "/gallery/"
-    weight = 15
-  
-  [[menu.main]]
-    identifier = "about"
-    name = "About"
-    url = "/about/"
-    weight = 20
-  
-  [[menu.main]]
-    identifier = "tags"
-    name = "Tags"
-    url = "/tags/"
-    weight = 30
-  
-  [[menu.main]]
-    identifier = "search"
-    name = "Search"
-    url = "/search/"
-    weight = 40
-
-  [[menu.main]]
-    identifier = "contact"
-    name = "Contact"
-    url = "/contact/"
-    weight = 50
-
-# Taxonomies
 [taxonomies]
-  tag = "tags"
-  category = "categories"
+  journey = 'journeys'
+  tag = 'tags'
+  category = 'categories'
 
-# Markup settings for better content rendering
-[markup]
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      unsafe = true
-  [markup.highlight]
-    style = "monokai"
-    lineNos = false
-    noClasses = false
+[permalinks.page]
+  posts = '/dispatches/:contentbasename/'
+[permalinks.section]
+  posts = '/dispatches/'
 
-# Privacy settings (respecting open web principles)
-[privacy]
-  [privacy.instagram]
-    simple = true
-  [privacy.x]
-    simple = true
-  [privacy.youtube]
-    privacyEnhanced = true
+[outputs]
+  home = ['HTML', 'RSS']
+  section = ['HTML', 'RSS']
+
+[markup.goldmark.parser]
+  wrapStandAloneImageWithinParagraph = false
+[markup.goldmark.renderer]
+  # Existing authored contact page contains a Netlify form in HTML.
+  unsafe = true

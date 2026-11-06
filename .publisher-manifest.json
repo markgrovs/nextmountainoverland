@@ -1,3 +1,11 @@
 {
-  "paths": []
+  "paths": [
+    "content/about.md",
+    "content/follow.md",
+    "content/home/index.md",
+    "content/home/media/51e28156f0db-Mark_Val-blog.webp",
+    "content/home/media/c452d6ca8dee-motorcycles-blog.jpeg",
+    "content/journeys/fall-2026-southern-usa-shakeout-ride/_index.md",
+    "content/journeys/fall-2026-southern-usa-shakeout-ride/media/846ea9021314-fall-southern-usa-route-blog.webp"
+  ]
 }
